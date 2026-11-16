@@ -5,74 +5,184 @@ import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
 
+
+
 @CobolGroup(cobolName = "ARDO04-RECORD")
-public class Ardo04Record {
+
+@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+
+
+public class Ardo04Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     @CobolBinaryNumber(cobolName = "C-ITEMS-NUMBER", signed = true, totalDigits = 4, odoObject = true)
     private Short c_ItemsNumber;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolArray(minOccurs=1, maxOccurs=250, dependingOn = "C-ITEMS-NUMBER")
+
     private C_Array[] c_Array;
+
+
+
+
+
+
+
+
 
     public Short getC_ItemsNumber() {
         return c_ItemsNumber;
     }
 
     public void setC_ItemsNumber(Short c_ItemsNumber) {
+        if (c_ItemsNumber != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(c_ItemsNumber.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("c_ItemsNumber: absolute value exceeds " + maximum);
+            }
+        }
         this.c_ItemsNumber = c_ItemsNumber;
     }
+
+
+
+
+
+
 
     public C_Array[] getC_Array() {
         return c_Array;
     }
 
     public void setC_Array(C_Array[] c_Array) {
+        if (c_Array != null) {
+            if (c_Array.length < 1
+                    || c_Array.length > 250) {
+                throw new IllegalArgumentException("c_Array: expected array length 1..250");
+            }
+        }
         this.c_Array = c_Array;
     }
 
+
+
+
+
+
+
+
     @CobolGroup(cobolName = "C-ARRAY")
-    public static class C_Array {
-    
+
+
+    public static class C_Array implements org.legstar.cobol.model.Copybook {
+
+
+        @CobolOrder(0)
+
+
+
         @CobolString(cobolName = "C-ITEM-1", charNum = 5)
         private String c_Item1;
-    
+
+
+        @CobolOrder(1)
+
+
+
         @CobolBinaryNumber(cobolName = "C-ITEM-2", signed = true, totalDigits = 4)
         private Short c_Item2;
-    
+
+
+
+
+
+
+
+
         public String getC_Item1() {
             return c_Item1;
         }
-    
+
         public void setC_Item1(String c_Item1) {
+            if (c_Item1 != null && c_Item1.length() > 5) {
+                throw new IllegalArgumentException("c_Item1: maximum length is 5");
+            }
             this.c_Item1 = c_Item1;
         }
-    
+
+
+
+
+
+
+
         public Short getC_Item2() {
             return c_Item2;
         }
-    
+
         public void setC_Item2(Short c_Item2) {
+            if (c_Item2 != null) {
+                java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                    .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+                if (new java.math.BigDecimal(c_Item2.toString()).abs().compareTo(maximum) > 0) {
+                    throw new IllegalArgumentException("c_Item2: absolute value exceeds " + maximum);
+                }
+            }
             this.c_Item2 = c_Item2;
         }
-    
+
+
+
+
+
+
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("c_Item1=").append(c_Item1)
+
+
                 .append(", c_Item2=").append(c_Item2)
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("c_ItemsNumber=").append(c_ItemsNumber)
+
+
             .append(", c_Array=").append(Arrays.toString(c_Array))
+
             .append("}");
         return sb.toString();
     }

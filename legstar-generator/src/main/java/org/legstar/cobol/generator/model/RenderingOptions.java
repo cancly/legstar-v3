@@ -7,6 +7,10 @@ import java.util.function.Function;
  */
 public interface RenderingOptions {
 
+    /** Whether to emit validation before assigning a generated field. */
+    default boolean validateSetters() { return true; }
+
+
 	/**
 	 * Whether the generated java bean should include more imports.
 	 * 
@@ -79,7 +83,18 @@ public interface RenderingOptions {
 	 * @return the default set of rendering options
 	 */
 	static RenderingOptions defaults() {
+		return mainframeDefaults(null, true, false);
+	}
+
+    static RenderingOptions mainframeDefaults(String charset, boolean spaces, boolean trim) {
+        return mainframeDefaults(charset, spaces, trim, true);
+    }
+
+    static RenderingOptions mainframeDefaults(String charset, boolean spaces, boolean trim, boolean validate) {
 		return new RenderingOptions() {
+            @Override
+            public boolean validateSetters() { return validate; }
+
 
 			@Override
 			public boolean hasMoreImports() {
@@ -113,12 +128,14 @@ public interface RenderingOptions {
 
 			@Override
 			public boolean hasMoreRootGroupAnnotations() {
-				return false;
+				return charset != null;
 			}
 
 			@Override
 			public Function<RenderingGroup, String> moreRootGroupAnnotations() {
-				return null;
+                return group -> "@CobolEncoding(hostCharsetName = \"" + charset
+                    + "\", rightPadCobolAlphanumWithSpaces = " + spaces
+                    + ", truncateHostStringsTrailingSpaces = " + trim + ")";
 			}
 
 		};

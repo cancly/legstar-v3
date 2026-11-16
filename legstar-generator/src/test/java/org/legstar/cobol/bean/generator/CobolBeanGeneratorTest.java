@@ -103,6 +103,19 @@ public class CobolBeanGeneratorTest extends CobolTestBase {
 		check(generate("FREEFORM", getFreeformConfig()));
 	}
 
+    @Test
+    public void testDisabledValidationIncludesOccurs() {
+        org.junit.jupiter.api.Assertions.assertTrue(new CobolBeanGeneratorConfig().validateSetters());
+        for (String copy : new String[]{"ALLTYPES", "ARDO01", "ARDO03", "ARDO04"}) {
+            String generated = generate(copy, getDefaultConfig().setValidateSetters(false));
+            org.junit.jupiter.api.Assertions.assertFalse(
+                    generated.contains("throw new IllegalArgumentException"), copy);
+            org.junit.jupiter.api.Assertions.assertFalse(generated.contains("occurrenceIndex"), copy);
+            if (copy.startsWith("ARDO"))
+                org.junit.jupiter.api.Assertions.assertTrue(generated.contains("@CobolArray"), copy);
+        }
+    }
+
 	private String generate(String source) {
 		return generate(source, getDefaultConfig());
 	}

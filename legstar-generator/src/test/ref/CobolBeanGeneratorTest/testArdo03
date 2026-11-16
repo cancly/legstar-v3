@@ -5,99 +5,241 @@ import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
 
+
+
 @CobolGroup(cobolName = "ARDO03-RECORD")
-public class Ardo03Record {
+
+@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+
+
+public class Ardo03Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     @CobolZonedDecimal(cobolName = "ODO-COUNTER", totalDigits = 5, odoObject = true)
     private BigDecimal odoCounter;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-COUNTER")
+
     private OdoArray[] odoArray;
+
+
+
+
+
+
+
 
     public BigDecimal getOdoCounter() {
         return odoCounter;
     }
 
     public void setOdoCounter(BigDecimal odoCounter) {
+        if (odoCounter != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(5)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (odoCounter.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("odoCounter: absolute value exceeds " + maximum);
+            }
+        }
         this.odoCounter = odoCounter;
     }
+
+
+
+
+
+
 
     public OdoArray[] getOdoArray() {
         return odoArray;
     }
 
     public void setOdoArray(OdoArray[] odoArray) {
+        if (odoArray != null) {
+            if (odoArray.length < 0
+                    || odoArray.length > 5) {
+                throw new IllegalArgumentException("odoArray: expected array length 0..5");
+            }
+        }
         this.odoArray = odoArray;
     }
 
+
+
+
+
+
+
+
     @CobolGroup(cobolName = "ODO-ARRAY")
-    public static class OdoArray {
-    
+
+
+    public static class OdoArray implements org.legstar.cobol.model.Copybook {
+
+
+        @CobolOrder(0)
+
+
+
         @CobolZonedDecimal(cobolName = "ODO-SUB-COUNTER", totalDigits = 3, odoObject = true)
         private BigDecimal odoSubCounter;
-    
+
+
+        @CobolOrder(1)
+
+
+
         @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-SUB-COUNTER")
+
         private OdoSubArray[] odoSubArray;
-    
+
+
+
+
+
+
+
+
         public BigDecimal getOdoSubCounter() {
             return odoSubCounter;
         }
-    
+
         public void setOdoSubCounter(BigDecimal odoSubCounter) {
+            if (odoSubCounter != null) {
+                java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(3)
+                    .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+                if (odoSubCounter.abs().compareTo(maximum) > 0) {
+                    throw new IllegalArgumentException("odoSubCounter: absolute value exceeds " + maximum);
+                }
+            }
             this.odoSubCounter = odoSubCounter;
         }
-    
+
+
+
+
+
+
+
         public OdoSubArray[] getOdoSubArray() {
             return odoSubArray;
         }
-    
+
         public void setOdoSubArray(OdoSubArray[] odoSubArray) {
+            if (odoSubArray != null) {
+                if (odoSubArray.length < 0
+                        || odoSubArray.length > 5) {
+                    throw new IllegalArgumentException("odoSubArray: expected array length 0..5");
+                }
+            }
             this.odoSubArray = odoSubArray;
         }
-    
+
+
+
+
+
+
+
+
         @CobolGroup(cobolName = "ODO-SUB-ARRAY")
-        public static class OdoSubArray {
-        
+
+
+        public static class OdoSubArray implements org.legstar.cobol.model.Copybook {
+
+
+            @CobolOrder(0)
+
+
+
             @CobolString(cobolName = "FILLER", charNum = 4)
             private String filler;
-        
+
+
+
+
+
+
+
+
             public String getFiller() {
                 return filler;
             }
-        
+
             public void setFiller(String filler) {
+                if (filler != null && filler.length() > 4) {
+                    throw new IllegalArgumentException("filler: maximum length is 4");
+                }
                 this.filler = filler;
             }
-        
+
+
+
+
+
+
+
+
+
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
+
+
                     .append("filler=").append(filler)
+
                     .append("}");
                 return sb.toString();
             }
-        
+
         }
-    
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("odoSubCounter=").append(odoSubCounter)
+
+
                 .append(", odoSubArray=").append(Arrays.toString(odoSubArray))
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("odoCounter=").append(odoCounter)
+
+
             .append(", odoArray=").append(Arrays.toString(odoArray))
+
             .append("}");
         return sb.toString();
     }

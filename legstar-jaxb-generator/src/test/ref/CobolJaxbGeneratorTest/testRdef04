@@ -4,17 +4,42 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
+
 import jakarta.xml.bind.annotation.*;
 
+
+
 @CobolGroup(cobolName = "RDEF04-RECORD")
+
 @XmlRootElement(name = "rdef04Record")
+
+
 @XmlType (propOrder={"outerRedefinesLongChoice", "footer"})
-public class Rdef04Record {
+
+public class Rdef04Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     private OuterRedefinesLongChoice outerRedefinesLongChoice;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolString(cobolName = "FOOTER", charNum = 1)
     private String footer;
+
+
+
+
+
+
+
+
 
     public OuterRedefinesLongChoice getOuterRedefinesLongChoice() {
         return outerRedefinesLongChoice;
@@ -24,118 +49,257 @@ public class Rdef04Record {
         this.outerRedefinesLongChoice = outerRedefinesLongChoice;
     }
 
+
+
+
+
+
     public String getFooter() {
         return footer;
     }
 
     public void setFooter(String footer) {
+        if (footer != null && footer.length() > 1) {
+            throw new IllegalArgumentException("footer: maximum length is 1");
+        }
         this.footer = footer;
     }
 
+
+
+
+
+
     @CobolChoice(cobolName = "OUTER-REDEFINES-LONG", maxBytesLen = 10)
+
     public static class OuterRedefinesLongChoice {
-    
+
+
+        @CobolOrder(0)
+
+
+
         @CobolString(cobolName = "OUTER-REDEFINES-LONG", charNum = 10)
         private String outerRedefinesLong;
-    
+
+
+        @CobolOrder(1)
+
+
+
         private OuterRedefinesShort outerRedefinesShort;
-    
+
+
+
+
+
+
+
+
         public String getOuterRedefinesLong() {
             return outerRedefinesLong;
         }
-    
+
         public void setOuterRedefinesLong(String outerRedefinesLong) {
+            if (outerRedefinesLong != null && outerRedefinesLong.length() > 10) {
+                throw new IllegalArgumentException("outerRedefinesLong: maximum length is 10");
+            }
             this.outerRedefinesLong = outerRedefinesLong;
         }
-    
+
+
+
+
+
+
+
         public OuterRedefinesShort getOuterRedefinesShort() {
             return outerRedefinesShort;
         }
-    
+
         public void setOuterRedefinesShort(OuterRedefinesShort outerRedefinesShort) {
             this.outerRedefinesShort = outerRedefinesShort;
         }
-    
+
+
+
+
+
+
+
+
         @CobolGroup(cobolName = "OUTER-REDEFINES-SHORT")
+
+
         @XmlType (propOrder={"innerRedefinesLongChoice"})
-        public static class OuterRedefinesShort {
-        
+
+        public static class OuterRedefinesShort implements org.legstar.cobol.model.Copybook {
+
+
+            @CobolOrder(0)
+
+
+
             private InnerRedefinesLongChoice innerRedefinesLongChoice;
-        
+
+
+
+
+
+
+
+
+
             public InnerRedefinesLongChoice getInnerRedefinesLongChoice() {
                 return innerRedefinesLongChoice;
             }
-        
+
             public void setInnerRedefinesLongChoice(InnerRedefinesLongChoice innerRedefinesLongChoice) {
                 this.innerRedefinesLongChoice = innerRedefinesLongChoice;
             }
-        
+
+
+
+
+
+
             @CobolChoice(cobolName = "INNER-REDEFINES-LONG", maxBytesLen = 5)
+
             public static class InnerRedefinesLongChoice {
-            
+
+
+                @CobolOrder(0)
+
+
+
                 @CobolString(cobolName = "INNER-REDEFINES-LONG", charNum = 5)
                 private String innerRedefinesLong;
-            
+
+
+                @CobolOrder(1)
+
+
+
                 @CobolString(cobolName = "INNER-REDEFINES-SHORT", charNum = 3)
                 private String innerRedefinesShort;
-            
+
+
+
+
+
+
+
+
                 public String getInnerRedefinesLong() {
                     return innerRedefinesLong;
                 }
-            
+
                 public void setInnerRedefinesLong(String innerRedefinesLong) {
+                    if (innerRedefinesLong != null && innerRedefinesLong.length() > 5) {
+                        throw new IllegalArgumentException("innerRedefinesLong: maximum length is 5");
+                    }
                     this.innerRedefinesLong = innerRedefinesLong;
                 }
-            
+
+
+
+
+
+
                 public String getInnerRedefinesShort() {
                     return innerRedefinesShort;
                 }
-            
+
                 public void setInnerRedefinesShort(String innerRedefinesShort) {
+                    if (innerRedefinesShort != null && innerRedefinesShort.length() > 3) {
+                        throw new IllegalArgumentException("innerRedefinesShort: maximum length is 3");
+                    }
                     this.innerRedefinesShort = innerRedefinesShort;
                 }
-            
+
+
+
+
+
+
+
+
+
+
+
                 @Override
                 public String toString() {
                     StringBuilder sb = new StringBuilder();
                     sb.append("{")
+
+
                         .append("innerRedefinesLong=").append(innerRedefinesLong)
+
+
                         .append(", innerRedefinesShort=").append(innerRedefinesShort)
+
                         .append("}");
                     return sb.toString();
                 }
-            
+
             }
-        
+
+
+
+
+
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
+
+
                     .append("innerRedefinesLongChoice=").append(innerRedefinesLongChoice)
+
                     .append("}");
                 return sb.toString();
             }
-        
+
         }
-    
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("outerRedefinesLong=").append(outerRedefinesLong)
+
+
                 .append(", outerRedefinesShort=").append(outerRedefinesShort)
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
+
+
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("outerRedefinesLongChoice=").append(outerRedefinesLongChoice)
+
+
             .append(", footer=").append(footer)
+
             .append("}");
         return sb.toString();
     }

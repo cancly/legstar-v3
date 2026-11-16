@@ -10,5 +10,11 @@
     }
 
     public void ${field.setterName()}(Float@if(field.isArray())[]@endif ${fieldName}) {
-        this.${fieldName} = ${fieldName};
+@if(model.options().validateSetters())@if(field.isArray())        if (${fieldName} != null) {
+            if (${fieldName}.length < ${field.array().isVariableSize() ? field.array().minOccurs() : field.array().maxOccurs()}
+                    || ${fieldName}.length > ${field.array().maxOccurs()}) {
+                throw new IllegalArgumentException("${fieldName}: expected array length ${field.array().isVariableSize() ? field.array().minOccurs() : field.array().maxOccurs()}..${field.array().maxOccurs()}");
+            }
+        }
+@endif@endif        this.${fieldName} = ${fieldName};
     }

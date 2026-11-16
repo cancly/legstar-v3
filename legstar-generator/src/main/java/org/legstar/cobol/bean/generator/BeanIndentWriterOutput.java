@@ -59,10 +59,10 @@ public class BeanIndentWriterOutput extends WriterOutput {
 		if (line.startsWith("@CobolGroup") || line.startsWith("@CobolChoice")) {
 			depth.push(depth.size());
 		}
-		if (!depth.isEmpty()) {
+		if (!depth.isEmpty() && !line.isBlank()) {
 			super.writeContent("    ".repeat(depth.peek()));
 		}
-		super.writeContent(line);
+		super.writeContent(line.isBlank() ? NL : line);
 
 		if (line.startsWith("}")) {
 			depth.pop();

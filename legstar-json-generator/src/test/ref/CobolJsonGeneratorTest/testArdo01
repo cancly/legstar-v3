@@ -4,65 +4,173 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
+
 import com.fasterxml.jackson.annotation.*;
 
+
+
 @CobolGroup(cobolName = "ARDO01-RECORD")
+
+
 @JsonPropertyOrder ({"comNumber", "comName", "comNbr", "comArray"})
-public class Ardo01Record {
+
+public class Ardo01Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolString(cobolName = "COM-NAME", charNum = 20)
     private String comName;
+
+
+    @CobolOrder(2)
+
+
 
     @CobolBinaryNumber(cobolName = "COM-NBR", totalDigits = 4, odoObject = true)
     private Short comNbr;
 
+
+    @CobolOrder(3)
+
+
+
     @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "COM-NBR")
+
     @CobolPackedDecimal(cobolName = "COM-ARRAY", signed = true, totalDigits = 15, fractionDigits = 2)
     private BigDecimal[] comArray;
+
+
+
+
+
+
+
 
     public BigDecimal getComNumber() {
         return comNumber;
     }
 
     public void setComNumber(BigDecimal comNumber) {
+        if (comNumber != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(6)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (comNumber.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("comNumber: absolute value exceeds " + maximum);
+            }
+        }
         this.comNumber = comNumber;
     }
+
+
+
+
+
 
     public String getComName() {
         return comName;
     }
 
     public void setComName(String comName) {
+        if (comName != null && comName.length() > 20) {
+            throw new IllegalArgumentException("comName: maximum length is 20");
+        }
         this.comName = comName;
     }
+
+
+
+
+
+
 
     public Short getComNbr() {
         return comNbr;
     }
 
     public void setComNbr(Short comNbr) {
+        if (comNbr != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(comNbr.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("comNbr: absolute value exceeds " + maximum);
+            }
+            if (new java.math.BigDecimal(comNbr.toString()).signum() < 0) {
+                throw new IllegalArgumentException("comNbr: negative values are not allowed");
+            }
+        }
         this.comNbr = comNbr;
     }
+
+
+
+
+
 
     public BigDecimal[] getComArray() {
         return comArray;
     }
 
     public void setComArray(BigDecimal[] comArray) {
+        if (comArray != null) {
+            if (comArray.length < 0
+                    || comArray.length > 5) {
+                throw new IllegalArgumentException("comArray: expected array length 0..5");
+            }
+            for (int occurrenceIndex = 0; occurrenceIndex < comArray.length; occurrenceIndex++) {
+        if (comArray[occurrenceIndex] != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(15)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (comArray[occurrenceIndex].abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("comArray[" + occurrenceIndex + "]: absolute value exceeds " + maximum);
+            }
+        }
+            }
+        }
         this.comArray = comArray;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("comNumber=").append(comNumber)
+
+
             .append(", comName=").append(comName)
+
+
             .append(", comNbr=").append(comNbr)
+
+
             .append(", comArray=").append(Arrays.toString(comArray))
+
             .append("}");
         return sb.toString();
     }

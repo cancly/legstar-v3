@@ -4,104 +4,257 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
+
 import jakarta.xml.bind.annotation.*;
 
+
+
 @CobolGroup(cobolName = "OPTL01-RECORD")
+
 @XmlRootElement(name = "optl01Record")
+
+
 @XmlType (propOrder={"optlStructInd", "optlItemInd", "optlStruct", "optlItem"})
-public class Optl01Record {
+
+public class Optl01Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     @CobolZonedDecimal(cobolName = "OPTL-STRUCT-IND", totalDigits = 3, odoObject = true)
     private BigDecimal optlStructInd;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolZonedDecimal(cobolName = "OPTL-ITEM-IND", totalDigits = 3, odoObject = true)
     private BigDecimal optlItemInd;
 
+
+    @CobolOrder(2)
+
+
+
     @CobolArray(minOccurs=0, maxOccurs=1, dependingOn = "OPTL-STRUCT-IND")
+
     private OptlStruct[] optlStruct;
 
+
+    @CobolOrder(3)
+
+
+
     @CobolArray(minOccurs=0, maxOccurs=1, dependingOn = "OPTL-ITEM-IND")
+
     @CobolString(cobolName = "OPTL-ITEM", charNum = 32)
     private String[] optlItem;
+
+
+
+
+
+
+
 
     public BigDecimal getOptlStructInd() {
         return optlStructInd;
     }
 
     public void setOptlStructInd(BigDecimal optlStructInd) {
+        if (optlStructInd != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(3)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (optlStructInd.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("optlStructInd: absolute value exceeds " + maximum);
+            }
+        }
         this.optlStructInd = optlStructInd;
     }
+
+
+
+
+
 
     public BigDecimal getOptlItemInd() {
         return optlItemInd;
     }
 
     public void setOptlItemInd(BigDecimal optlItemInd) {
+        if (optlItemInd != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(3)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (optlItemInd.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("optlItemInd: absolute value exceeds " + maximum);
+            }
+        }
         this.optlItemInd = optlItemInd;
     }
+
+
+
+
+
+
 
     public OptlStruct[] getOptlStruct() {
         return optlStruct;
     }
 
     public void setOptlStruct(OptlStruct[] optlStruct) {
+        if (optlStruct != null) {
+            if (optlStruct.length < 0
+                    || optlStruct.length > 1) {
+                throw new IllegalArgumentException("optlStruct: expected array length 0..1");
+            }
+        }
         this.optlStruct = optlStruct;
     }
+
+
+
+
+
 
     public String[] getOptlItem() {
         return optlItem;
     }
 
     public void setOptlItem(String[] optlItem) {
+        if (optlItem != null) {
+            if (optlItem.length < 0
+                    || optlItem.length > 1) {
+                throw new IllegalArgumentException("optlItem: expected array length 0..1");
+            }
+            for (int occurrenceIndex = 0; occurrenceIndex < optlItem.length; occurrenceIndex++) {
+        if (optlItem[occurrenceIndex] != null && optlItem[occurrenceIndex].length() > 32) {
+            throw new IllegalArgumentException("optlItem[" + occurrenceIndex + "]: maximum length is 32");
+        }
+            }
+        }
         this.optlItem = optlItem;
     }
 
+
+
+
+
+
+
+
+
+
     @CobolGroup(cobolName = "OPTL-STRUCT")
+
+
     @XmlType (propOrder={"optlStructField1", "optlStructField2"})
-    public static class OptlStruct {
-    
+
+    public static class OptlStruct implements org.legstar.cobol.model.Copybook {
+
+
+        @CobolOrder(0)
+
+
+
         @CobolString(cobolName = "OPTL-STRUCT-FIELD1", charNum = 18)
         private String optlStructField1;
-    
+
+
+        @CobolOrder(1)
+
+
+
         @CobolString(cobolName = "OPTL-STRUCT-FIELD2", charNum = 5)
         private String optlStructField2;
-    
+
+
+
+
+
+
+
+
         public String getOptlStructField1() {
             return optlStructField1;
         }
-    
+
         public void setOptlStructField1(String optlStructField1) {
+            if (optlStructField1 != null && optlStructField1.length() > 18) {
+                throw new IllegalArgumentException("optlStructField1: maximum length is 18");
+            }
             this.optlStructField1 = optlStructField1;
         }
-    
+
+
+
+
+
+
         public String getOptlStructField2() {
             return optlStructField2;
         }
-    
+
         public void setOptlStructField2(String optlStructField2) {
+            if (optlStructField2 != null && optlStructField2.length() > 5) {
+                throw new IllegalArgumentException("optlStructField2: maximum length is 5");
+            }
             this.optlStructField2 = optlStructField2;
         }
-    
+
+
+
+
+
+
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("optlStructField1=").append(optlStructField1)
+
+
                 .append(", optlStructField2=").append(optlStructField2)
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
+
+
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("optlStructInd=").append(optlStructInd)
+
+
             .append(", optlItemInd=").append(optlItemInd)
+
+
             .append(", optlStruct=").append(Arrays.toString(optlStruct))
+
+
             .append(", optlItem=").append(Arrays.toString(optlItem))
+
             .append("}");
         return sb.toString();
     }

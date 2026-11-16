@@ -4,19 +4,49 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
+
 import jakarta.xml.bind.annotation.*;
 
+
+
 @CobolGroup(cobolName = "RDEF02-RECORD")
+
 @XmlRootElement(name = "rdef02Record")
+
+
 @XmlType (propOrder={"rdef02Key", "comDetail1Choice", "comItem3"})
-public class Rdef02Record {
+
+public class Rdef02Record implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     private Rdef02Key rdef02Key;
 
+
+    @CobolOrder(1)
+
+
+
     private ComDetail1Choice comDetail1Choice;
+
+
+    @CobolOrder(2)
+
+
 
     @CobolPackedDecimal(cobolName = "COM-ITEM3", totalDigits = 7, fractionDigits = 2)
     private BigDecimal comItem3;
+
+
+
+
+
+
+
+
 
     public Rdef02Key getRdef02Key() {
         return rdef02Key;
@@ -26,6 +56,12 @@ public class Rdef02Record {
         this.rdef02Key = rdef02Key;
     }
 
+
+
+
+
+
+
     public ComDetail1Choice getComDetail1Choice() {
         return comDetail1Choice;
     }
@@ -34,194 +70,455 @@ public class Rdef02Record {
         this.comDetail1Choice = comDetail1Choice;
     }
 
+
+
+
+
+
     public BigDecimal getComItem3() {
         return comItem3;
     }
 
     public void setComItem3(BigDecimal comItem3) {
+        if (comItem3 != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(7)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (comItem3.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("comItem3: absolute value exceeds " + maximum);
+            }
+            if (comItem3.signum() < 0) {
+                throw new IllegalArgumentException("comItem3: negative values are not allowed");
+            }
+        }
         this.comItem3 = comItem3;
     }
 
+
+
+
+
+
     @CobolGroup(cobolName = "RDEF02-KEY")
+
+
     @XmlType (propOrder={"rdef02Item1Choice", "comSelect"})
-    public static class Rdef02Key {
-    
+
+    public static class Rdef02Key implements org.legstar.cobol.model.Copybook {
+
+
+        @CobolOrder(0)
+
+
+
         private Rdef02Item1Choice rdef02Item1Choice;
-    
+
+
+        @CobolOrder(1)
+
+
+
         @CobolBinaryNumber(cobolName = "COM-SELECT", totalDigits = 4)
         private Short comSelect;
-    
+
+
+
+
+
+
+
+
+
         public Rdef02Item1Choice getRdef02Item1Choice() {
             return rdef02Item1Choice;
         }
-    
+
         public void setRdef02Item1Choice(Rdef02Item1Choice rdef02Item1Choice) {
             this.rdef02Item1Choice = rdef02Item1Choice;
         }
-    
+
+
+
+
+
+
+
         public Short getComSelect() {
             return comSelect;
         }
-    
+
         public void setComSelect(Short comSelect) {
+            if (comSelect != null) {
+                java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                    .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+                if (new java.math.BigDecimal(comSelect.toString()).abs().compareTo(maximum) > 0) {
+                    throw new IllegalArgumentException("comSelect: absolute value exceeds " + maximum);
+                }
+                if (new java.math.BigDecimal(comSelect.toString()).signum() < 0) {
+                    throw new IllegalArgumentException("comSelect: negative values are not allowed");
+                }
+            }
             this.comSelect = comSelect;
         }
-    
+
+
+
+
+
+
         @CobolChoice(cobolName = "RDEF02-ITEM1", maxBytesLen = 6)
+
         public static class Rdef02Item1Choice {
-        
+
+
+            @CobolOrder(0)
+
+
+
             @CobolPackedDecimal(cobolName = "RDEF02-ITEM1", signed = true, totalDigits = 10)
             private BigDecimal rdef02Item1;
-        
+
+
+            @CobolOrder(1)
+
+
+
             @CobolString(cobolName = "RDEF02-ITEM2", charNum = 6)
             private String rdef02Item2;
-        
+
+
+
+
+
+
+
+
             public BigDecimal getRdef02Item1() {
                 return rdef02Item1;
             }
-        
+
             public void setRdef02Item1(BigDecimal rdef02Item1) {
+                if (rdef02Item1 != null) {
+                    java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(10)
+                        .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+                    if (rdef02Item1.abs().compareTo(maximum) > 0) {
+                        throw new IllegalArgumentException("rdef02Item1: absolute value exceeds " + maximum);
+                    }
+                }
                 this.rdef02Item1 = rdef02Item1;
             }
-        
+
+
+
+
+
+
             public String getRdef02Item2() {
                 return rdef02Item2;
             }
-        
+
             public void setRdef02Item2(String rdef02Item2) {
+                if (rdef02Item2 != null && rdef02Item2.length() > 6) {
+                    throw new IllegalArgumentException("rdef02Item2: maximum length is 6");
+                }
                 this.rdef02Item2 = rdef02Item2;
             }
-        
+
+
+
+
+
+
+
+
+
+
+
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
+
+
                     .append("rdef02Item1=").append(rdef02Item1)
+
+
                     .append(", rdef02Item2=").append(rdef02Item2)
+
                     .append("}");
                 return sb.toString();
             }
-        
+
         }
-    
+
+
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("rdef02Item1Choice=").append(rdef02Item1Choice)
+
+
                 .append(", comSelect=").append(comSelect)
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
 
+
+
+
     @CobolChoice(cobolName = "COM-DETAIL1", maxBytesLen = 10)
+
     public static class ComDetail1Choice {
-    
+
+
+        @CobolOrder(0)
+
+
+
         private ComDetail1 comDetail1;
-    
+
+
+        @CobolOrder(1)
+
+
+
         private ComDetail2 comDetail2;
-    
+
+
+
+
+
+
+
+
+
         public ComDetail1 getComDetail1() {
             return comDetail1;
         }
-    
+
         public void setComDetail1(ComDetail1 comDetail1) {
             this.comDetail1 = comDetail1;
         }
-    
+
+
+
+
+
+
+
         public ComDetail2 getComDetail2() {
             return comDetail2;
         }
-    
+
         public void setComDetail2(ComDetail2 comDetail2) {
             this.comDetail2 = comDetail2;
         }
-    
+
+
+
+
+
+
         @CobolGroup(cobolName = "COM-DETAIL1")
+
+
         @XmlType (propOrder={"comName"})
-        public static class ComDetail1 {
-        
+
+        public static class ComDetail1 implements org.legstar.cobol.model.Copybook {
+
+
+            @CobolOrder(0)
+
+
+
             @CobolString(cobolName = "COM-NAME", charNum = 10)
             private String comName;
-        
+
+
+
+
+
+
+
+
             public String getComName() {
                 return comName;
             }
-        
+
             public void setComName(String comName) {
+                if (comName != null && comName.length() > 10) {
+                    throw new IllegalArgumentException("comName: maximum length is 10");
+                }
                 this.comName = comName;
             }
-        
+
+
+
+
+
+
+
+
+
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
+
+
                     .append("comName=").append(comName)
+
                     .append("}");
                 return sb.toString();
             }
-        
+
         }
-    
+
+
+
+
         @CobolGroup(cobolName = "COM-DETAIL2")
+
+
         @XmlType (propOrder={"comAmount", "filler"})
-        public static class ComDetail2 {
-        
+
+        public static class ComDetail2 implements org.legstar.cobol.model.Copybook {
+
+
+            @CobolOrder(0)
+
+
+
             @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
             private BigDecimal comAmount;
-        
+
+
+            @CobolOrder(1)
+
+
+
             @CobolString(cobolName = "FILLER", charNum = 6)
             private String filler;
-        
+
+
+
+
+
+
+
+
             public BigDecimal getComAmount() {
                 return comAmount;
             }
-        
+
             public void setComAmount(BigDecimal comAmount) {
+                if (comAmount != null) {
+                    java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(7)
+                        .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+                    if (comAmount.abs().compareTo(maximum) > 0) {
+                        throw new IllegalArgumentException("comAmount: absolute value exceeds " + maximum);
+                    }
+                    if (comAmount.signum() < 0) {
+                        throw new IllegalArgumentException("comAmount: negative values are not allowed");
+                    }
+                }
                 this.comAmount = comAmount;
             }
-        
+
+
+
+
+
+
             public String getFiller() {
                 return filler;
             }
-        
+
             public void setFiller(String filler) {
+                if (filler != null && filler.length() > 6) {
+                    throw new IllegalArgumentException("filler: maximum length is 6");
+                }
                 this.filler = filler;
             }
-        
+
+
+
+
+
+
+
+
+
+
+
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
+
+
                     .append("comAmount=").append(comAmount)
+
+
                     .append(", filler=").append(filler)
+
                     .append("}");
                 return sb.toString();
             }
-        
+
         }
-    
+
+
+
+
+
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
+
+
                 .append("comDetail1=").append(comDetail1)
+
+
                 .append(", comDetail2=").append(comDetail2)
+
                 .append("}");
             return sb.toString();
         }
-    
+
     }
+
+
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("rdef02Key=").append(rdef02Key)
+
+
             .append(", comDetail1Choice=").append(comDetail1Choice)
+
+
             .append(", comItem3=").append(comItem3)
+
             .append("}");
         return sb.toString();
     }

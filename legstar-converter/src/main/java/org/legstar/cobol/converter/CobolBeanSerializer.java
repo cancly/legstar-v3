@@ -44,6 +44,7 @@ public class CobolBeanSerializer {
 	 * Mutable serialization context.
 	 */
 	private CobolBeanSerializerContext context;
+    private String fieldPath;
 
 	/**
 	 * Create a Cobol bean serializer.
@@ -72,6 +73,7 @@ public class CobolBeanSerializer {
 	 */
 	public void serialize(CobolOutputStream cobolOutputStream, Object bean) {
 		context = new CobolBeanSerializerContext(cobolOutputStream);
+        fieldPath = bean.getClass().getSimpleName();
 		Annotation cobolItemType = classInfo.getCobolItemType(bean.getClass());
 		serialize(cobolItemType, bean);
 		endRecord();
@@ -159,6 +161,9 @@ public class CobolBeanSerializer {
 	 * @param value     the field's value
 	 */
 	private void serializeField(CobolFieldInfo fieldInfo, Object value) {
+        String parentPath = fieldPath;
+        fieldPath += "." + fieldInfo.name();
+        try {
 		Class<?> fieldType = fieldInfo.javaType();
 		if (fieldType.isMemberClass()) {
 			serialize(fieldInfo.cobolItemType(), value);
@@ -167,6 +172,11 @@ public class CobolBeanSerializer {
 		} else {
 			serialize(fieldInfo.cobolItemType(), value);
 		}
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException(fieldPath + ": " + e.getMessage(), e);
+        } finally {
+            fieldPath = parentPath;
+        }
 	}
 
 	/**
@@ -181,6 +191,9 @@ public class CobolBeanSerializer {
 		int len = Array.getLength(array);
 		Class<?> itemType = array.getClass().getComponentType();
 		for (int i = 0; i < len; i++) {
+            String arrayPath = fieldPath;
+            fieldPath += "[" + i + "]";
+            try {
 			Object itemValue = Array.get(array, i);
 			if (itemType.isMemberClass()) {
 				serialize(cobolItemType, itemValue);
@@ -189,6 +202,11 @@ public class CobolBeanSerializer {
 			} else {
 				serialize(cobolItemType, itemValue);
 			}
+            } catch (RuntimeException e) {
+                throw new IllegalArgumentException(fieldPath + ": " + e.getMessage(), e);
+            } finally {
+                fieldPath = arrayPath;
+            }
 		}
 	}
 

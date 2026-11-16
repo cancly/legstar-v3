@@ -15,6 +15,20 @@ import org.legstar.cobol.copybook.parser.CopybookParserConfig;
  */
 @Mojo(name = "generate-bean", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class BeanGeneratorMojo extends LegstarMojoBase {
+    /** Generate validation in setters, including OCCURS dimensions and elements. */
+    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "false", property = "legstar.validateSetters")
+    private boolean validateSetters = false;
+
+    /** Host code page used by MainframeMapper. */
+    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "IBM01140", property = "legstar.hostCharsetName")
+    private String hostCharsetName = "IBM01140";
+    /** Use spaces (true) or low values (false) for right padding. */
+    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "true", property = "legstar.rightPadCobolAlphanumWithSpaces")
+    private boolean rightPadCobolAlphanumWithSpaces = true;
+    /** Remove trailing spaces when decoding host strings. */
+    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "true", property = "legstar.truncateHostStringsTrailingSpaces")
+    private boolean truncateHostStringsTrailingSpaces;
+
 
 	/**
 	 * Create generate-bean goal.
@@ -34,7 +48,11 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 					.setFreeCodeFormat(isFreeCodeFormat());
 			CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig(parserConfig) //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
-					.setWithToString(isWithToString());
+					.setWithToString(isWithToString())
+                    .setValidateSetters(validateSetters)
+                    .setHostCharsetName(hostCharsetName)
+                    .setRightPadCobolAlphanumWithSpaces(rightPadCobolAlphanumWithSpaces)
+                    .setTruncateHostStringsTrailingSpaces(truncateHostStringsTrailingSpaces);
 			CobolBeanGenerator gen = new CobolBeanGenerator(config);
 			gen.generateAndWrite(baseName, reader, output);
 

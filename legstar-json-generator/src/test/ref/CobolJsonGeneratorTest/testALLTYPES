@@ -4,137 +4,358 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.legstar.cobol.annotation.*;
+
 import com.fasterxml.jackson.annotation.*;
 
+
+
 @CobolGroup(cobolName = "ALLTYPES")
+
+
 @JsonPropertyOrder ({"s_String", "s_Binary", "s_Short", "s_Ushort", "s_Int", "s_Uint", "s_Long", "s_Ulong", "s_Pdecimal", "s_Float", "s_Double", "s_Zoned", "s_Uzoned", "s_ZonedSl", "s_ZonedSt", "s_ZonedSls", "s_ZonedSts", "s_UzonedBwz"})
-public class Alltypes {
+
+public class Alltypes implements org.legstar.cobol.model.Copybook {
+
+
+    @CobolOrder(0)
+
+
 
     @CobolString(cobolName = "S-STRING", charNum = 4)
     private String s_String;
 
+
+    @CobolOrder(1)
+
+
+
     @CobolString(cobolName = "S-BINARY", charNum = 4)
     private String s_Binary;
+
+
+    @CobolOrder(2)
+
+
 
     @CobolBinaryNumber(cobolName = "S-SHORT", signed = true, totalDigits = 4)
     private Short s_Short;
 
+
+    @CobolOrder(3)
+
+
+
     @CobolBinaryNumber(cobolName = "S-USHORT", totalDigits = 4)
     private Short s_Ushort;
+
+
+    @CobolOrder(4)
+
+
 
     @CobolBinaryNumber(cobolName = "S-INT", signed = true, totalDigits = 9)
     private Integer s_Int;
 
+
+    @CobolOrder(5)
+
+
+
     @CobolBinaryNumber(cobolName = "S-UINT", totalDigits = 9)
     private Integer s_Uint;
+
+
+    @CobolOrder(6)
+
+
 
     @CobolBinaryNumber(cobolName = "S-LONG", signed = true, totalDigits = 18)
     private Long s_Long;
 
+
+    @CobolOrder(7)
+
+
+
     @CobolBinaryNumber(cobolName = "S-ULONG", totalDigits = 18)
     private Long s_Ulong;
+
+
+    @CobolOrder(8)
+
+
 
     @CobolPackedDecimal(cobolName = "S-PDECIMAL", totalDigits = 9, fractionDigits = 2)
     private BigDecimal s_Pdecimal;
 
+
+    @CobolOrder(9)
+
+
+
     @CobolFloat(cobolName = "S-FLOAT")
     private Float s_Float;
+
+
+    @CobolOrder(10)
+
+
 
     @CobolDouble(cobolName = "S-DOUBLE")
     private Double s_Double;
 
+
+    @CobolOrder(11)
+
+
+
     @CobolZonedDecimal(cobolName = "S-ZONED", totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Zoned;
+
+
+    @CobolOrder(12)
+
+
 
     @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Uzoned;
 
+
+    @CobolOrder(13)
+
+
+
     @CobolZonedDecimal(cobolName = "S-ZONED-SL", totalDigits = 3, signLeading = true)
     private BigDecimal s_ZonedSl;
+
+
+    @CobolOrder(14)
+
+
 
     @CobolZonedDecimal(cobolName = "S-ZONED-ST", totalDigits = 2)
     private BigDecimal s_ZonedSt;
 
+
+    @CobolOrder(15)
+
+
+
     @CobolZonedDecimal(cobolName = "S-ZONED-SLS", totalDigits = 1, signLeading = true, signSeparate = true)
     private BigDecimal s_ZonedSls;
+
+
+    @CobolOrder(16)
+
+
 
     @CobolZonedDecimal(cobolName = "S-ZONED-STS", totalDigits = 2, signSeparate = true)
     private BigDecimal s_ZonedSts;
 
+
+    @CobolOrder(17)
+
+
+
     @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true)
     private BigDecimal s_UzonedBwz;
+
+
+
+
+
+
+
 
     public String getS_String() {
         return s_String;
     }
 
     public void setS_String(String s_String) {
+        if (s_String != null && s_String.length() > 4) {
+            throw new IllegalArgumentException("s_String: maximum length is 4");
+        }
         this.s_String = s_String;
     }
+
+
+
+
+
 
     public String getS_Binary() {
         return s_Binary;
     }
 
     public void setS_Binary(String s_Binary) {
+        if (s_Binary != null && s_Binary.length() > 4) {
+            throw new IllegalArgumentException("s_Binary: maximum length is 4");
+        }
         this.s_Binary = s_Binary;
     }
+
+
+
+
+
+
 
     public Short getS_Short() {
         return s_Short;
     }
 
     public void setS_Short(Short s_Short) {
+        if (s_Short != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Short.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Short: absolute value exceeds " + maximum);
+            }
+        }
         this.s_Short = s_Short;
     }
+
+
+
+
+
+
 
     public Short getS_Ushort() {
         return s_Ushort;
     }
 
     public void setS_Ushort(Short s_Ushort) {
+        if (s_Ushort != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(4)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Ushort.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Ushort: absolute value exceeds " + maximum);
+            }
+            if (new java.math.BigDecimal(s_Ushort.toString()).signum() < 0) {
+                throw new IllegalArgumentException("s_Ushort: negative values are not allowed");
+            }
+        }
         this.s_Ushort = s_Ushort;
     }
+
+
+
+
+
+
 
     public Integer getS_Int() {
         return s_Int;
     }
 
     public void setS_Int(Integer s_Int) {
+        if (s_Int != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(9)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Int.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Int: absolute value exceeds " + maximum);
+            }
+        }
         this.s_Int = s_Int;
     }
+
+
+
+
+
+
 
     public Integer getS_Uint() {
         return s_Uint;
     }
 
     public void setS_Uint(Integer s_Uint) {
+        if (s_Uint != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(9)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Uint.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Uint: absolute value exceeds " + maximum);
+            }
+            if (new java.math.BigDecimal(s_Uint.toString()).signum() < 0) {
+                throw new IllegalArgumentException("s_Uint: negative values are not allowed");
+            }
+        }
         this.s_Uint = s_Uint;
     }
+
+
+
+
+
+
 
     public Long getS_Long() {
         return s_Long;
     }
 
     public void setS_Long(Long s_Long) {
+        if (s_Long != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(18)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Long.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Long: absolute value exceeds " + maximum);
+            }
+        }
         this.s_Long = s_Long;
     }
+
+
+
+
+
+
 
     public Long getS_Ulong() {
         return s_Ulong;
     }
 
     public void setS_Ulong(Long s_Ulong) {
+        if (s_Ulong != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(18)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (new java.math.BigDecimal(s_Ulong.toString()).abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Ulong: absolute value exceeds " + maximum);
+            }
+            if (new java.math.BigDecimal(s_Ulong.toString()).signum() < 0) {
+                throw new IllegalArgumentException("s_Ulong: negative values are not allowed");
+            }
+        }
         this.s_Ulong = s_Ulong;
     }
+
+
+
+
+
 
     public BigDecimal getS_Pdecimal() {
         return s_Pdecimal;
     }
 
     public void setS_Pdecimal(BigDecimal s_Pdecimal) {
+        if (s_Pdecimal != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(9)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (s_Pdecimal.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Pdecimal: absolute value exceeds " + maximum);
+            }
+            if (s_Pdecimal.signum() < 0) {
+                throw new IllegalArgumentException("s_Pdecimal: negative values are not allowed");
+            }
+        }
         this.s_Pdecimal = s_Pdecimal;
     }
+
+
+
+
+
 
     public Float getS_Float() {
         return s_Float;
@@ -144,6 +365,11 @@ public class Alltypes {
         this.s_Float = s_Float;
     }
 
+
+
+
+
+
     public Double getS_Double() {
         return s_Double;
     }
@@ -152,84 +378,247 @@ public class Alltypes {
         this.s_Double = s_Double;
     }
 
+
+
+
+
+
     public BigDecimal getS_Zoned() {
         return s_Zoned;
     }
 
     public void setS_Zoned(BigDecimal s_Zoned) {
+        if (s_Zoned != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(5)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (s_Zoned.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Zoned: absolute value exceeds " + maximum);
+            }
+        }
         this.s_Zoned = s_Zoned;
     }
+
+
+
+
+
 
     public BigDecimal getS_Uzoned() {
         return s_Uzoned;
     }
 
     public void setS_Uzoned(BigDecimal s_Uzoned) {
+        if (s_Uzoned != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(5)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (s_Uzoned.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_Uzoned: absolute value exceeds " + maximum);
+            }
+        }
         this.s_Uzoned = s_Uzoned;
     }
+
+
+
+
+
 
     public BigDecimal getS_ZonedSl() {
         return s_ZonedSl;
     }
 
     public void setS_ZonedSl(BigDecimal s_ZonedSl) {
+        if (s_ZonedSl != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(3)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (s_ZonedSl.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_ZonedSl: absolute value exceeds " + maximum);
+            }
+        }
         this.s_ZonedSl = s_ZonedSl;
     }
+
+
+
+
+
 
     public BigDecimal getS_ZonedSt() {
         return s_ZonedSt;
     }
 
     public void setS_ZonedSt(BigDecimal s_ZonedSt) {
+        if (s_ZonedSt != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(2)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (s_ZonedSt.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_ZonedSt: absolute value exceeds " + maximum);
+            }
+        }
         this.s_ZonedSt = s_ZonedSt;
     }
+
+
+
+
+
 
     public BigDecimal getS_ZonedSls() {
         return s_ZonedSls;
     }
 
     public void setS_ZonedSls(BigDecimal s_ZonedSls) {
+        if (s_ZonedSls != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(1)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (s_ZonedSls.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_ZonedSls: absolute value exceeds " + maximum);
+            }
+        }
         this.s_ZonedSls = s_ZonedSls;
     }
+
+
+
+
+
 
     public BigDecimal getS_ZonedSts() {
         return s_ZonedSts;
     }
 
     public void setS_ZonedSts(BigDecimal s_ZonedSts) {
+        if (s_ZonedSts != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(2)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(0);
+            if (s_ZonedSts.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_ZonedSts: absolute value exceeds " + maximum);
+            }
+        }
         this.s_ZonedSts = s_ZonedSts;
     }
+
+
+
+
+
 
     public BigDecimal getS_UzonedBwz() {
         return s_UzonedBwz;
     }
 
     public void setS_UzonedBwz(BigDecimal s_UzonedBwz) {
+        if (s_UzonedBwz != null) {
+            java.math.BigDecimal maximum = java.math.BigDecimal.TEN.pow(5)
+                .subtract(java.math.BigDecimal.ONE).movePointLeft(2);
+            if (s_UzonedBwz.abs().compareTo(maximum) > 0) {
+                throw new IllegalArgumentException("s_UzonedBwz: absolute value exceeds " + maximum);
+            }
+        }
         this.s_UzonedBwz = s_UzonedBwz;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
+
+
             .append("s_String=").append(s_String)
+
+
             .append(", s_Binary=").append(s_Binary)
+
+
             .append(", s_Short=").append(s_Short)
+
+
             .append(", s_Ushort=").append(s_Ushort)
+
+
             .append(", s_Int=").append(s_Int)
+
+
             .append(", s_Uint=").append(s_Uint)
+
+
             .append(", s_Long=").append(s_Long)
+
+
             .append(", s_Ulong=").append(s_Ulong)
+
+
             .append(", s_Pdecimal=").append(s_Pdecimal)
+
+
             .append(", s_Float=").append(s_Float)
+
+
             .append(", s_Double=").append(s_Double)
+
+
             .append(", s_Zoned=").append(s_Zoned)
+
+
             .append(", s_Uzoned=").append(s_Uzoned)
+
+
             .append(", s_ZonedSl=").append(s_ZonedSl)
+
+
             .append(", s_ZonedSt=").append(s_ZonedSt)
+
+
             .append(", s_ZonedSls=").append(s_ZonedSls)
+
+
             .append(", s_ZonedSts=").append(s_ZonedSts)
+
+
             .append(", s_UzonedBwz=").append(s_UzonedBwz)
+
             .append("}");
         return sb.toString();
     }

@@ -59,7 +59,7 @@
 						${project.build.directory}/generated-sources</targetDirectory>
 					<contentType>Plain</contentType>
 					<packageName>org.legstar.cobol.bean.generator.templates</packageName>
-					<trimControlStructures>true</trimControlStructures>
+					<trimControlStructures>false</trimControlStructures>
 				</configuration>
 			</plugin>
 

@@ -5,6 +5,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Comparator;
+import org.legstar.cobol.annotation.CobolOrder;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
@@ -39,6 +41,8 @@ public class CobolClassInfoReflect implements CobolClassInfo {
 		return fieldInfos.computeIfAbsent(clazz.getName(), k -> {
 			return Stream.of(clazz.getDeclaredFields()) //
 					.filter(this::isCobolField) //
+                    .sorted(Comparator.comparingInt(f -> f.isAnnotationPresent(CobolOrder.class)
+                            ? f.getAnnotation(CobolOrder.class).value() : Integer.MAX_VALUE))
 					.map(this::toFieldInfo) //
 					.toArray(CobolFieldInfo[]::new);
 		});

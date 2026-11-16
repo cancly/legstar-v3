@@ -9,6 +9,7 @@ import org.legstar.cobol.generator.model.RenderingOptions;
  * legstar converter.
  */
 public class CobolBeanGenerator extends CobolBeanGeneratorBase {
+    private final CobolBeanGeneratorConfig beanConfig;
 
 	/**
 	 * Build a java bean generator with default configuration parameters.
@@ -24,11 +25,14 @@ public class CobolBeanGenerator extends CobolBeanGeneratorBase {
 	 */
 	public CobolBeanGenerator(CobolBeanGeneratorConfig config) {
 		super(config);
+        this.beanConfig = config;
 	}
 
 	@Override
 	public RenderingOptions renderingOptions() {
-		return RenderingOptions.defaults();
+		return RenderingOptions.mainframeDefaults(beanConfig.hostCharsetName(),
+                beanConfig.rightPadCobolAlphanumWithSpaces(), beanConfig.truncateHostStringsTrailingSpaces(),
+                beanConfig.validateSetters());
 	}
 
 }
