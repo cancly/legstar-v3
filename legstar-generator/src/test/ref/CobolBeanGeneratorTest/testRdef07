@@ -6,38 +6,16 @@ import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
-
-
 @CobolGroup(cobolName = "RDEF07-RECORD")
-
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
-
-
 public class Rdef07Record implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolZonedDecimal(cobolName = "COM-COUNTER", totalDigits = 3, odoObject = true)
     private BigDecimal comCounter;
 
-
     @CobolOrder(1)
-
-
-
     @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "COM-COUNTER")
-
     private ComStruct[] comStruct;
-
-
-
-
-
-
-
 
     public BigDecimal getComCounter() {
         return comCounter;
@@ -54,12 +32,6 @@ public class Rdef07Record implements Copybook {
         this.comCounter = comCounter;
     }
 
-
-
-
-
-
-
     public ComStruct[] getComStruct() {
         return comStruct;
     }
@@ -74,32 +46,10 @@ public class Rdef07Record implements Copybook {
         this.comStruct = comStruct;
     }
 
-
-
-
-
-
-
-
     @CobolGroup(cobolName = "COM-STRUCT")
-
-
     public static class ComStruct implements Copybook {
-
-
         @CobolOrder(0)
-
-
-
         private ComAlt1Choice comAlt1Choice;
-
-
-
-
-
-
-
-
 
         public ComAlt1Choice getComAlt1Choice() {
             return comAlt1Choice;
@@ -109,37 +59,15 @@ public class Rdef07Record implements Copybook {
             this.comAlt1Choice = comAlt1Choice;
         }
 
-
-
-
-
-
         @CobolChoice(cobolName = "COM-ALT1", maxBytesLen = 2)
-
         public static class ComAlt1Choice {
-
-
             @CobolOrder(0)
-
-
-
             @CobolPackedDecimal(cobolName = "COM-ALT1", totalDigits = 3)
             private BigDecimal comAlt1;
 
-
             @CobolOrder(1)
-
-
-
             @CobolString(cobolName = "COM-ALT2", charNum = 2)
             private String comAlt2;
-
-
-
-
-
-
-
 
             public BigDecimal getComAlt1() {
                 return comAlt1;
@@ -159,11 +87,6 @@ public class Rdef07Record implements Copybook {
                 this.comAlt1 = comAlt1;
             }
 
-
-
-
-
-
             public String getComAlt2() {
                 return comAlt2;
             }
@@ -175,68 +98,42 @@ public class Rdef07Record implements Copybook {
                 this.comAlt2 = comAlt2;
             }
 
-
-
-
-
-
-
-
-
-
-
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
 
-
                     .append("comAlt1=").append(comAlt1)
-
 
                     .append(", comAlt2=").append(comAlt2)
 
                     .append("}");
                 return sb.toString();
             }
-
         }
-
-
-
-
 
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
 
-
                 .append("comAlt1Choice=").append(comAlt1Choice)
 
                 .append("}");
             return sb.toString();
         }
-
     }
-
-
-
-
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("comCounter=").append(comCounter)
-
 
             .append(", comStruct=").append(Arrays.toString(comStruct))
 
             .append("}");
         return sb.toString();
     }
-
 }

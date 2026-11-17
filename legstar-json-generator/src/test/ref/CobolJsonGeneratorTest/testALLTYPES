@@ -8,165 +8,80 @@ import org.legstar.cobol.annotation.*;
 
 import com.fasterxml.jackson.annotation.*;
 
-
-
 @CobolGroup(cobolName = "ALLTYPES")
-
-
 @JsonPropertyOrder ({"s_String", "s_Binary", "s_Short", "s_Ushort", "s_Int", "s_Uint", "s_Long", "s_Ulong", "s_Pdecimal", "s_Float", "s_Double", "s_Zoned", "s_Uzoned", "s_ZonedSl", "s_ZonedSt", "s_ZonedSls", "s_ZonedSts", "s_UzonedBwz"})
-
 public class Alltypes implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolString(cobolName = "S-STRING", charNum = 4)
     private String s_String;
 
-
     @CobolOrder(1)
-
-
-
     @CobolString(cobolName = "S-BINARY", charNum = 4)
     private String s_Binary;
 
-
     @CobolOrder(2)
-
-
-
     @CobolBinaryNumber(cobolName = "S-SHORT", signed = true, totalDigits = 4)
     private Short s_Short;
 
-
     @CobolOrder(3)
-
-
-
     @CobolBinaryNumber(cobolName = "S-USHORT", totalDigits = 4)
     private Short s_Ushort;
 
-
     @CobolOrder(4)
-
-
-
     @CobolBinaryNumber(cobolName = "S-INT", signed = true, totalDigits = 9)
     private Integer s_Int;
 
-
     @CobolOrder(5)
-
-
-
     @CobolBinaryNumber(cobolName = "S-UINT", totalDigits = 9)
     private Integer s_Uint;
 
-
     @CobolOrder(6)
-
-
-
     @CobolBinaryNumber(cobolName = "S-LONG", signed = true, totalDigits = 18)
     private Long s_Long;
 
-
     @CobolOrder(7)
-
-
-
     @CobolBinaryNumber(cobolName = "S-ULONG", totalDigits = 18)
     private Long s_Ulong;
 
-
     @CobolOrder(8)
-
-
-
     @CobolPackedDecimal(cobolName = "S-PDECIMAL", totalDigits = 9, fractionDigits = 2)
     private BigDecimal s_Pdecimal;
 
-
     @CobolOrder(9)
-
-
-
     @CobolFloat(cobolName = "S-FLOAT")
     private Float s_Float;
 
-
     @CobolOrder(10)
-
-
-
     @CobolDouble(cobolName = "S-DOUBLE")
     private Double s_Double;
 
-
     @CobolOrder(11)
-
-
-
     @CobolZonedDecimal(cobolName = "S-ZONED", totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Zoned;
 
-
     @CobolOrder(12)
-
-
-
     @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2)
     private BigDecimal s_Uzoned;
 
-
     @CobolOrder(13)
-
-
-
     @CobolZonedDecimal(cobolName = "S-ZONED-SL", totalDigits = 3, signLeading = true)
     private BigDecimal s_ZonedSl;
 
-
     @CobolOrder(14)
-
-
-
     @CobolZonedDecimal(cobolName = "S-ZONED-ST", totalDigits = 2)
     private BigDecimal s_ZonedSt;
 
-
     @CobolOrder(15)
-
-
-
     @CobolZonedDecimal(cobolName = "S-ZONED-SLS", totalDigits = 1, signLeading = true, signSeparate = true)
     private BigDecimal s_ZonedSls;
 
-
     @CobolOrder(16)
-
-
-
     @CobolZonedDecimal(cobolName = "S-ZONED-STS", totalDigits = 2, signSeparate = true)
     private BigDecimal s_ZonedSts;
 
-
     @CobolOrder(17)
-
-
-
     @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true)
     private BigDecimal s_UzonedBwz;
-
-
-
-
-
-
-
 
     public String getS_String() {
         return s_String;
@@ -179,11 +94,6 @@ public class Alltypes implements Copybook {
         this.s_String = s_String;
     }
 
-
-
-
-
-
     public String getS_Binary() {
         return s_Binary;
     }
@@ -194,12 +104,6 @@ public class Alltypes implements Copybook {
         }
         this.s_Binary = s_Binary;
     }
-
-
-
-
-
-
 
     public Short getS_Short() {
         return s_Short;
@@ -215,12 +119,6 @@ public class Alltypes implements Copybook {
         }
         this.s_Short = s_Short;
     }
-
-
-
-
-
-
 
     public Short getS_Ushort() {
         return s_Ushort;
@@ -240,12 +138,6 @@ public class Alltypes implements Copybook {
         this.s_Ushort = s_Ushort;
     }
 
-
-
-
-
-
-
     public Integer getS_Int() {
         return s_Int;
     }
@@ -260,12 +152,6 @@ public class Alltypes implements Copybook {
         }
         this.s_Int = s_Int;
     }
-
-
-
-
-
-
 
     public Integer getS_Uint() {
         return s_Uint;
@@ -285,12 +171,6 @@ public class Alltypes implements Copybook {
         this.s_Uint = s_Uint;
     }
 
-
-
-
-
-
-
     public Long getS_Long() {
         return s_Long;
     }
@@ -305,12 +185,6 @@ public class Alltypes implements Copybook {
         }
         this.s_Long = s_Long;
     }
-
-
-
-
-
-
 
     public Long getS_Ulong() {
         return s_Ulong;
@@ -330,11 +204,6 @@ public class Alltypes implements Copybook {
         this.s_Ulong = s_Ulong;
     }
 
-
-
-
-
-
     public BigDecimal getS_Pdecimal() {
         return s_Pdecimal;
     }
@@ -353,11 +222,6 @@ public class Alltypes implements Copybook {
         this.s_Pdecimal = s_Pdecimal;
     }
 
-
-
-
-
-
     public Float getS_Float() {
         return s_Float;
     }
@@ -366,11 +230,6 @@ public class Alltypes implements Copybook {
         this.s_Float = s_Float;
     }
 
-
-
-
-
-
     public Double getS_Double() {
         return s_Double;
     }
@@ -378,11 +237,6 @@ public class Alltypes implements Copybook {
     public void setS_Double(Double s_Double) {
         this.s_Double = s_Double;
     }
-
-
-
-
-
 
     public BigDecimal getS_Zoned() {
         return s_Zoned;
@@ -399,11 +253,6 @@ public class Alltypes implements Copybook {
         this.s_Zoned = s_Zoned;
     }
 
-
-
-
-
-
     public BigDecimal getS_Uzoned() {
         return s_Uzoned;
     }
@@ -418,11 +267,6 @@ public class Alltypes implements Copybook {
         }
         this.s_Uzoned = s_Uzoned;
     }
-
-
-
-
-
 
     public BigDecimal getS_ZonedSl() {
         return s_ZonedSl;
@@ -439,11 +283,6 @@ public class Alltypes implements Copybook {
         this.s_ZonedSl = s_ZonedSl;
     }
 
-
-
-
-
-
     public BigDecimal getS_ZonedSt() {
         return s_ZonedSt;
     }
@@ -458,11 +297,6 @@ public class Alltypes implements Copybook {
         }
         this.s_ZonedSt = s_ZonedSt;
     }
-
-
-
-
-
 
     public BigDecimal getS_ZonedSls() {
         return s_ZonedSls;
@@ -479,11 +313,6 @@ public class Alltypes implements Copybook {
         this.s_ZonedSls = s_ZonedSls;
     }
 
-
-
-
-
-
     public BigDecimal getS_ZonedSts() {
         return s_ZonedSts;
     }
@@ -498,11 +327,6 @@ public class Alltypes implements Copybook {
         }
         this.s_ZonedSts = s_ZonedSts;
     }
-
-
-
-
-
 
     public BigDecimal getS_UzonedBwz() {
         return s_UzonedBwz;
@@ -519,109 +343,48 @@ public class Alltypes implements Copybook {
         this.s_UzonedBwz = s_UzonedBwz;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("s_String=").append(s_String)
-
 
             .append(", s_Binary=").append(s_Binary)
 
-
             .append(", s_Short=").append(s_Short)
-
 
             .append(", s_Ushort=").append(s_Ushort)
 
-
             .append(", s_Int=").append(s_Int)
-
 
             .append(", s_Uint=").append(s_Uint)
 
-
             .append(", s_Long=").append(s_Long)
-
 
             .append(", s_Ulong=").append(s_Ulong)
 
-
             .append(", s_Pdecimal=").append(s_Pdecimal)
-
 
             .append(", s_Float=").append(s_Float)
 
-
             .append(", s_Double=").append(s_Double)
-
 
             .append(", s_Zoned=").append(s_Zoned)
 
-
             .append(", s_Uzoned=").append(s_Uzoned)
-
 
             .append(", s_ZonedSl=").append(s_ZonedSl)
 
-
             .append(", s_ZonedSt=").append(s_ZonedSt)
-
 
             .append(", s_ZonedSls=").append(s_ZonedSls)
 
-
             .append(", s_ZonedSts=").append(s_ZonedSts)
-
 
             .append(", s_UzonedBwz=").append(s_UzonedBwz)
 
             .append("}");
         return sb.toString();
     }
-
 }

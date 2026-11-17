@@ -8,38 +8,16 @@ import org.legstar.cobol.annotation.*;
 
 import com.fasterxml.jackson.annotation.*;
 
-
-
 @CobolGroup(cobolName = "ARDO03-RECORD")
-
-
 @JsonPropertyOrder ({"odoCounter", "odoArray"})
-
 public class Ardo03Record implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolZonedDecimal(cobolName = "ODO-COUNTER", totalDigits = 5, odoObject = true)
     private BigDecimal odoCounter;
 
-
     @CobolOrder(1)
-
-
-
     @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-COUNTER")
-
     private OdoArray[] odoArray;
-
-
-
-
-
-
-
 
     public BigDecimal getOdoCounter() {
         return odoCounter;
@@ -56,12 +34,6 @@ public class Ardo03Record implements Copybook {
         this.odoCounter = odoCounter;
     }
 
-
-
-
-
-
-
     public OdoArray[] getOdoArray() {
         return odoArray;
     }
@@ -76,43 +48,16 @@ public class Ardo03Record implements Copybook {
         this.odoArray = odoArray;
     }
 
-
-
-
-
-
-
-
     @CobolGroup(cobolName = "ODO-ARRAY")
-
-
     @JsonPropertyOrder ({"odoSubCounter", "odoSubArray"})
-
     public static class OdoArray implements Copybook {
-
-
         @CobolOrder(0)
-
-
-
         @CobolZonedDecimal(cobolName = "ODO-SUB-COUNTER", totalDigits = 3, odoObject = true)
         private BigDecimal odoSubCounter;
 
-
         @CobolOrder(1)
-
-
-
         @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-SUB-COUNTER")
-
         private OdoSubArray[] odoSubArray;
-
-
-
-
-
-
-
 
         public BigDecimal getOdoSubCounter() {
             return odoSubCounter;
@@ -129,12 +74,6 @@ public class Ardo03Record implements Copybook {
             this.odoSubCounter = odoSubCounter;
         }
 
-
-
-
-
-
-
         public OdoSubArray[] getOdoSubArray() {
             return odoSubArray;
         }
@@ -149,34 +88,12 @@ public class Ardo03Record implements Copybook {
             this.odoSubArray = odoSubArray;
         }
 
-
-
-
-
-
-
-
         @CobolGroup(cobolName = "ODO-SUB-ARRAY")
-
-
         @JsonPropertyOrder ({"filler"})
-
         public static class OdoSubArray implements Copybook {
-
-
             @CobolOrder(0)
-
-
-
             @CobolString(cobolName = "FILLER", charNum = 4)
             private String filler;
-
-
-
-
-
-
-
 
             public String getFiller() {
                 return filler;
@@ -189,66 +106,42 @@ public class Ardo03Record implements Copybook {
                 this.filler = filler;
             }
 
-
-
-
-
-
-
-
-
             @Override
             public String toString() {
                 StringBuilder sb = new StringBuilder();
                 sb.append("{")
-
 
                     .append("filler=").append(filler)
 
                     .append("}");
                 return sb.toString();
             }
-
         }
-
-
-
-
 
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
 
-
                 .append("odoSubCounter=").append(odoSubCounter)
-
 
                 .append(", odoSubArray=").append(Arrays.toString(odoSubArray))
 
                 .append("}");
             return sb.toString();
         }
-
     }
-
-
-
-
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("odoCounter=").append(odoCounter)
-
 
             .append(", odoArray=").append(Arrays.toString(odoArray))
 
             .append("}");
         return sb.toString();
     }
-
 }

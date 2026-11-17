@@ -18,7 +18,8 @@ public class BeanIndentWriterOutput extends WriterOutput {
 
 	private StringBuilder builder = new StringBuilder();
 
-	private boolean previousLineBlank = false;
+	private boolean pendingBlankLine;
+	private String previousContent = "";
 
 	/**
 	 * Group and Choices have their depth pushed on this stack.
@@ -62,18 +63,23 @@ public class BeanIndentWriterOutput extends WriterOutput {
 		if (line.startsWith("@CobolGroup") || line.startsWith("@CobolChoice")) {
 			depth.push(depth.size());
 		}
-		if (blankLine) {
-			if (!previousLineBlank) {
-				super.writeContent(NL);
-			}
-			previousLineBlank = true;
-			return;
-		}
+        if (blankLine) {
+            pendingBlankLine = true;
+            return;
+        }
+        String content = line.strip();
+        if (pendingBlankLine && !previousContent.isEmpty()
+                && !previousContent.startsWith("@") && !previousContent.endsWith("{")
+                && !content.startsWith("}")) {
+            super.writeContent(NL);
+        }
+        pendingBlankLine = false;
+        previousContent = content;
+
 		if (!depth.isEmpty()) {
 			super.writeContent("    ".repeat(depth.peek()));
 		}
 		super.writeContent(line);
-		previousLineBlank = false;
 
 		if (line.startsWith("}")) {
 			depth.pop();

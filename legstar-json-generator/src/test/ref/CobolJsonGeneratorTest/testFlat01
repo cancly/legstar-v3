@@ -8,45 +8,20 @@ import org.legstar.cobol.annotation.*;
 
 import com.fasterxml.jackson.annotation.*;
 
-
-
 @CobolGroup(cobolName = "FLAT01-RECORD")
-
-
 @JsonPropertyOrder ({"comNumber", "comName", "comAmount"})
-
 public class Flat01Record implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
 
-
     @CobolOrder(1)
-
-
-
     @CobolString(cobolName = "COM-NAME", charNum = 20)
     private String comName;
 
-
     @CobolOrder(2)
-
-
-
     @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
     private BigDecimal comAmount;
-
-
-
-
-
-
-
 
     public BigDecimal getComNumber() {
         return comNumber;
@@ -63,11 +38,6 @@ public class Flat01Record implements Copybook {
         this.comNumber = comNumber;
     }
 
-
-
-
-
-
     public String getComName() {
         return comName;
     }
@@ -78,11 +48,6 @@ public class Flat01Record implements Copybook {
         }
         this.comName = comName;
     }
-
-
-
-
-
 
     public BigDecimal getComAmount() {
         return comAmount;
@@ -102,34 +67,18 @@ public class Flat01Record implements Copybook {
         this.comAmount = comAmount;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("comNumber=").append(comNumber)
 
-
             .append(", comName=").append(comName)
-
 
             .append(", comAmount=").append(comAmount)
 
             .append("}");
         return sb.toString();
     }
-
 }

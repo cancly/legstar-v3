@@ -8,54 +8,24 @@ import org.legstar.cobol.annotation.*;
 
 import com.fasterxml.jackson.annotation.*;
 
-
-
 @CobolGroup(cobolName = "STRU03-RECORD")
-
-
 @JsonPropertyOrder ({"comNumber", "comName", "comAmount", "comArray"})
-
 public class Stru03Record implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
 
-
     @CobolOrder(1)
-
-
-
     @CobolString(cobolName = "COM-NAME", charNum = 20)
     private String comName;
 
-
     @CobolOrder(2)
-
-
-
     @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
     private BigDecimal comAmount;
 
-
     @CobolOrder(3)
-
-
-
     @CobolArray(minOccurs=5, maxOccurs=5)
-
     private ComArray[] comArray;
-
-
-
-
-
-
-
 
     public BigDecimal getComNumber() {
         return comNumber;
@@ -72,11 +42,6 @@ public class Stru03Record implements Copybook {
         this.comNumber = comNumber;
     }
 
-
-
-
-
-
     public String getComName() {
         return comName;
     }
@@ -87,11 +52,6 @@ public class Stru03Record implements Copybook {
         }
         this.comName = comName;
     }
-
-
-
-
-
 
     public BigDecimal getComAmount() {
         return comAmount;
@@ -111,12 +71,6 @@ public class Stru03Record implements Copybook {
         this.comAmount = comAmount;
     }
 
-
-
-
-
-
-
     public ComArray[] getComArray() {
         return comArray;
     }
@@ -131,47 +85,16 @@ public class Stru03Record implements Copybook {
         this.comArray = comArray;
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @CobolGroup(cobolName = "COM-ARRAY")
-
-
     @JsonPropertyOrder ({"comItem1", "comItem2"})
-
     public static class ComArray implements Copybook {
-
-
         @CobolOrder(0)
-
-
-
         @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
         private Short comItem1;
 
-
         @CobolOrder(1)
-
-
-
         @CobolString(cobolName = "COM-ITEM2", charNum = 2)
         private String comItem2;
-
-
-
-
-
-
-
-
 
         public Short getComItem1() {
             return comItem1;
@@ -188,11 +111,6 @@ public class Stru03Record implements Copybook {
             this.comItem1 = comItem1;
         }
 
-
-
-
-
-
         public String getComItem2() {
             return comItem2;
         }
@@ -204,56 +122,34 @@ public class Stru03Record implements Copybook {
             this.comItem2 = comItem2;
         }
 
-
-
-
-
-
-
-
-
-
-
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append("{")
 
-
                 .append("comItem1=").append(comItem1)
-
 
                 .append(", comItem2=").append(comItem2)
 
                 .append("}");
             return sb.toString();
         }
-
     }
-
-
-
-
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("comNumber=").append(comNumber)
-
 
             .append(", comName=").append(comName)
 
-
             .append(", comAmount=").append(comAmount)
-
 
             .append(", comArray=").append(Arrays.toString(comArray))
 
             .append("}");
         return sb.toString();
     }
-
 }

@@ -8,39 +8,17 @@ import org.legstar.cobol.annotation.*;
 
 import jakarta.xml.bind.annotation.*;
 
-
-
 @CobolGroup(cobolName = "5500-REC-01")
-
 @XmlRootElement(name = "_5500Rec01")
-
-
 @XmlType (propOrder={"_5500RecType", "_5500PlanNum"})
-
 public class _5500Rec01 implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolString(cobolName = "5500-REC-TYPE", charNum = 1)
     private String _5500RecType;
 
-
     @CobolOrder(1)
-
-
-
     @CobolString(cobolName = "5500-PLAN-NUM", charNum = 6)
     private String _5500PlanNum;
-
-
-
-
-
-
-
 
     public String get_5500RecType() {
         return _5500RecType;
@@ -53,11 +31,6 @@ public class _5500Rec01 implements Copybook {
         this._5500RecType = _5500RecType;
     }
 
-
-
-
-
-
     public String get_5500PlanNum() {
         return _5500PlanNum;
     }
@@ -69,29 +42,16 @@ public class _5500Rec01 implements Copybook {
         this._5500PlanNum = _5500PlanNum;
     }
 
-
-
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("_5500RecType=").append(_5500RecType)
-
 
             .append(", _5500PlanNum=").append(_5500PlanNum)
 
             .append("}");
         return sb.toString();
     }
-
 }

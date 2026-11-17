@@ -6,55 +6,25 @@ import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
-
-
 @CobolGroup(cobolName = "ARDO01-RECORD")
-
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
-
-
 public class Ardo01Record implements Copybook {
-
-
     @CobolOrder(0)
-
-
-
     @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
     private BigDecimal comNumber;
 
-
     @CobolOrder(1)
-
-
-
     @CobolString(cobolName = "COM-NAME", charNum = 20)
     private String comName;
 
-
     @CobolOrder(2)
-
-
-
     @CobolBinaryNumber(cobolName = "COM-NBR", totalDigits = 4, odoObject = true)
     private Short comNbr;
 
-
     @CobolOrder(3)
-
-
-
     @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "COM-NBR")
-
     @CobolPackedDecimal(cobolName = "COM-ARRAY", signed = true, totalDigits = 15, fractionDigits = 2)
     private BigDecimal[] comArray;
-
-
-
-
-
-
-
 
     public BigDecimal getComNumber() {
         return comNumber;
@@ -71,11 +41,6 @@ public class Ardo01Record implements Copybook {
         this.comNumber = comNumber;
     }
 
-
-
-
-
-
     public String getComName() {
         return comName;
     }
@@ -86,12 +51,6 @@ public class Ardo01Record implements Copybook {
         }
         this.comName = comName;
     }
-
-
-
-
-
-
 
     public Short getComNbr() {
         return comNbr;
@@ -110,11 +69,6 @@ public class Ardo01Record implements Copybook {
         }
         this.comNbr = comNbr;
     }
-
-
-
-
-
 
     public BigDecimal[] getComArray() {
         return comArray;
@@ -139,39 +93,20 @@ public class Ardo01Record implements Copybook {
         this.comArray = comArray;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{")
 
-
             .append("comNumber=").append(comNumber)
-
 
             .append(", comName=").append(comName)
 
-
             .append(", comNbr=").append(comNbr)
-
 
             .append(", comArray=").append(Arrays.toString(comArray))
 
             .append("}");
         return sb.toString();
     }
-
 }
