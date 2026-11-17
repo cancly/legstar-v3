@@ -5,6 +5,7 @@
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 @if(model.options().hasMoreImports())

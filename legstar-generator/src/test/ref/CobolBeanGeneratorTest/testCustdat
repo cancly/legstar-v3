@@ -2,6 +2,7 @@ package legstar.samples.custdat;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -12,7 +13,7 @@ import org.legstar.cobol.annotation.*;
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 
 
-public class CustomerData implements org.legstar.cobol.model.Copybook {
+public class CustomerData implements Copybook {
 
 
     @CobolOrder(0)
@@ -96,7 +97,7 @@ public class CustomerData implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "PERSONAL-DATA")
 
 
-    public static class PersonalData implements org.legstar.cobol.model.Copybook {
+    public static class PersonalData implements Copybook {
 
 
         @CobolOrder(0)
@@ -210,7 +211,7 @@ public class CustomerData implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "TRANSACTIONS")
 
 
-    public static class Transactions implements org.legstar.cobol.model.Copybook {
+    public static class Transactions implements Copybook {
 
 
         @CobolOrder(0)
@@ -285,7 +286,7 @@ public class CustomerData implements org.legstar.cobol.model.Copybook {
         @CobolGroup(cobolName = "TRANSACTION")
 
 
-        public static class Transaction implements org.legstar.cobol.model.Copybook {
+        public static class Transaction implements Copybook {
 
 
             @CobolOrder(0)
@@ -428,7 +429,7 @@ public class CustomerData implements org.legstar.cobol.model.Copybook {
                 @CobolGroup(cobolName = "FILLER")
 
 
-                public static class Filler implements org.legstar.cobol.model.Copybook {
+                public static class Filler implements Copybook {
 
 
                     @CobolOrder(0)

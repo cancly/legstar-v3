@@ -2,6 +2,7 @@ package legstar.samples.freeform;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -12,7 +13,7 @@ import org.legstar.cobol.annotation.*;
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 
 
-public class RecA implements org.legstar.cobol.model.Copybook {
+public class RecA implements Copybook {
 
 
     @CobolOrder(0)
@@ -66,7 +67,7 @@ public class RecA implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "REC-A-HEADER")
 
 
-    public static class RecAHeader implements org.legstar.cobol.model.Copybook {
+    public static class RecAHeader implements Copybook {
 
 
         @CobolOrder(0)
@@ -362,7 +363,7 @@ public class RecA implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "REC-A-DATA")
 
 
-    public static class RecAData implements org.legstar.cobol.model.Copybook {
+    public static class RecAData implements Copybook {
 
 
         @CobolOrder(0)

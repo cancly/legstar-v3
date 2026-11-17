@@ -2,6 +2,7 @@ package legstar.samples.rdef02;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -12,7 +13,7 @@ import org.legstar.cobol.annotation.*;
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 
 
-public class Rdef02Record implements org.legstar.cobol.model.Copybook {
+public class Rdef02Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -97,7 +98,7 @@ public class Rdef02Record implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "RDEF02-KEY")
 
 
-    public static class Rdef02Key implements org.legstar.cobol.model.Copybook {
+    public static class Rdef02Key implements Copybook {
 
 
         @CobolOrder(0)
@@ -326,7 +327,7 @@ public class Rdef02Record implements org.legstar.cobol.model.Copybook {
         @CobolGroup(cobolName = "COM-DETAIL1")
 
 
-        public static class ComDetail1 implements org.legstar.cobol.model.Copybook {
+        public static class ComDetail1 implements Copybook {
 
 
             @CobolOrder(0)
@@ -382,7 +383,7 @@ public class Rdef02Record implements org.legstar.cobol.model.Copybook {
         @CobolGroup(cobolName = "COM-DETAIL2")
 
 
-        public static class ComDetail2 implements org.legstar.cobol.model.Copybook {
+        public static class ComDetail2 implements Copybook {
 
 
             @CobolOrder(0)

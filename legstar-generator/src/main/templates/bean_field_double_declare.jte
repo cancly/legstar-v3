@@ -2,7 +2,6 @@
 @import org.legstar.cobol.generator.model.RenderingDouble
 @param RenderingModel model
 @param RenderingDouble field
-
 @if(field.isArray())
 @template.bean_field_array_declare(field.array())
 @endif

@@ -12,8 +12,7 @@
 @param java.util.List<RenderingItem> fields
 <%-- Field declarations --%>
 @for(var field : fields)
-    @CobolOrder(${fields.indexOf(field)})
-@if(field instanceof RenderingZonedDecimal renderingZoneDecimal)
+    @CobolOrder(${fields.indexOf(field)})@if(field instanceof RenderingZonedDecimal renderingZoneDecimal)
 @template.bean_field_zoneddecimal_declare(model, renderingZoneDecimal)
 @elseif(field instanceof RenderingPackedDecimal renderingPackedDecimal)
 @template.bean_field_packeddecimal_declare(model, renderingPackedDecimal)

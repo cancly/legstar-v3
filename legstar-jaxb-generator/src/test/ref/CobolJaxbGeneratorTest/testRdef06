@@ -2,6 +2,7 @@ package legstar.samples.jaxb.rdef06;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -16,7 +17,7 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlType (propOrder={"optlStructInd", "optlItemChoice"})
 
-public class Rdef06Record implements org.legstar.cobol.model.Copybook {
+public class Rdef06Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -147,7 +148,7 @@ public class Rdef06Record implements org.legstar.cobol.model.Copybook {
 
         @XmlType (propOrder={"optlStructField1", "optlStructField2"})
 
-        public static class OptlStruct implements org.legstar.cobol.model.Copybook {
+        public static class OptlStruct implements Copybook {
 
 
             @CobolOrder(0)

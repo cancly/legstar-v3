@@ -2,6 +2,7 @@ package legstar.samples.optl01;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -12,7 +13,7 @@ import org.legstar.cobol.annotation.*;
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 
 
-public class Optl01Record implements org.legstar.cobol.model.Copybook {
+public class Optl01Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -147,7 +148,7 @@ public class Optl01Record implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "OPTL-STRUCT")
 
 
-    public static class OptlStruct implements org.legstar.cobol.model.Copybook {
+    public static class OptlStruct implements Copybook {
 
 
         @CobolOrder(0)

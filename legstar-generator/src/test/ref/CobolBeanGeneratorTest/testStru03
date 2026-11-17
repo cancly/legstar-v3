@@ -2,6 +2,7 @@ package legstar.samples.stru03;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -12,7 +13,7 @@ import org.legstar.cobol.annotation.*;
 @CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 
 
-public class Stru03Record implements org.legstar.cobol.model.Copybook {
+public class Stru03Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -142,7 +143,7 @@ public class Stru03Record implements org.legstar.cobol.model.Copybook {
     @CobolGroup(cobolName = "COM-ARRAY")
 
 
-    public static class ComArray implements org.legstar.cobol.model.Copybook {
+    public static class ComArray implements Copybook {
 
 
         @CobolOrder(0)

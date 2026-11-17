@@ -56,7 +56,9 @@ public abstract class CobolTestBase {
 	}
 
 	public String normalize(String s) {
-		return s.replaceAll("\\r\\n?", "\n");
+		return s.replaceAll("\\r\\n?", "\n")
+				.replaceAll("[ \t]+(?=\n)", "")
+				.replaceAll("\n{3,}", "\n\n");
 	}
 
 	public Reader getReader(String source) {

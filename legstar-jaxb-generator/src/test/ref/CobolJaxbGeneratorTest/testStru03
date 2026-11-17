@@ -2,6 +2,7 @@ package legstar.samples.jaxb.stru03;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -16,7 +17,7 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlType (propOrder={"comNumber", "comName", "comAmount", "comArray"})
 
-public class Stru03Record implements org.legstar.cobol.model.Copybook {
+public class Stru03Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -148,7 +149,7 @@ public class Stru03Record implements org.legstar.cobol.model.Copybook {
 
     @XmlType (propOrder={"comItem1", "comItem2"})
 
-    public static class ComArray implements org.legstar.cobol.model.Copybook {
+    public static class ComArray implements Copybook {
 
 
         @CobolOrder(0)

@@ -2,6 +2,7 @@ package legstar.samples.json.digitname;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.*;
 
 @JsonPropertyOrder ({"_5500RecType", "_5500PlanNum"})
 
-public class _5500Rec01 implements org.legstar.cobol.model.Copybook {
+public class _5500Rec01 implements Copybook {
 
 
     @CobolOrder(0)

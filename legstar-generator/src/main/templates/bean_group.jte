@@ -4,13 +4,11 @@
 @param RenderingGroup renderingGroup
 @param boolean subGroup = false
 
-@CobolGroup(cobolName = "${renderingGroup.cobolName()}")
-@if(!subGroup && model.options().hasMoreRootGroupAnnotations())
+@CobolGroup(cobolName = "${renderingGroup.cobolName()}")@if(!subGroup && model.options().hasMoreRootGroupAnnotations())
 ${model.options().moreRootGroupAnnotations().apply(renderingGroup)}
-@endif
-@if(model.options().hasMoreGroupAnnotations())
+@endif@if(model.options().hasMoreGroupAnnotations())
 ${model.options().moreGroupAnnotations().apply(renderingGroup)}
 @endif
-public@if(subGroup) static@endif class ${renderingGroup.className()} implements org.legstar.cobol.model.Copybook {
+public@if(subGroup) static@endif class ${renderingGroup.className()} implements Copybook {
 @template.bean_fields(model, renderingGroup.fields())
 }

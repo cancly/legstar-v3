@@ -2,6 +2,7 @@ package legstar.samples.json.rdef01;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -14,7 +15,7 @@ import com.fasterxml.jackson.annotation.*;
 
 @JsonPropertyOrder ({"comSelect", "comDetail1Choice"})
 
-public class Rdef01Record implements org.legstar.cobol.model.Copybook {
+public class Rdef01Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -136,7 +137,7 @@ public class Rdef01Record implements org.legstar.cobol.model.Copybook {
 
         @JsonPropertyOrder ({"comName"})
 
-        public static class ComDetail1 implements org.legstar.cobol.model.Copybook {
+        public static class ComDetail1 implements Copybook {
 
 
             @CobolOrder(0)
@@ -194,7 +195,7 @@ public class Rdef01Record implements org.legstar.cobol.model.Copybook {
 
         @JsonPropertyOrder ({"comAmount"})
 
-        public static class ComDetail2 implements org.legstar.cobol.model.Copybook {
+        public static class ComDetail2 implements Copybook {
 
 
             @CobolOrder(0)

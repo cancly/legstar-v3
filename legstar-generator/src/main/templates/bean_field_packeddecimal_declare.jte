@@ -2,7 +2,6 @@
 @import org.legstar.cobol.generator.model.RenderingPackedDecimal
 @param RenderingModel model
 @param RenderingPackedDecimal field
-
 @if(field.isArray())
 @template.bean_field_array_declare(field.array())
 @endif

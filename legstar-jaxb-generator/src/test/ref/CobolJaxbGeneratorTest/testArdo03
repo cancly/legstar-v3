@@ -2,6 +2,7 @@ package legstar.samples.jaxb.ardo03;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import org.legstar.cobol.model.Copybook;
 
 import org.legstar.cobol.annotation.*;
 
@@ -16,7 +17,7 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlType (propOrder={"odoCounter", "odoArray"})
 
-public class Ardo03Record implements org.legstar.cobol.model.Copybook {
+public class Ardo03Record implements Copybook {
 
 
     @CobolOrder(0)
@@ -89,7 +90,7 @@ public class Ardo03Record implements org.legstar.cobol.model.Copybook {
 
     @XmlType (propOrder={"odoSubCounter", "odoSubArray"})
 
-    public static class OdoArray implements org.legstar.cobol.model.Copybook {
+    public static class OdoArray implements Copybook {
 
 
         @CobolOrder(0)
@@ -162,7 +163,7 @@ public class Ardo03Record implements org.legstar.cobol.model.Copybook {
 
         @XmlType (propOrder={"filler"})
 
-        public static class OdoSubArray implements org.legstar.cobol.model.Copybook {
+        public static class OdoSubArray implements Copybook {
 
 
             @CobolOrder(0)
