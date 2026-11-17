@@ -19,6 +19,7 @@ public @interface CobolString {
 	 * @return the cobol name
 	 */
 	String cobolName();
+	int order();
 
 	/**
 	 * The number of characters in this string

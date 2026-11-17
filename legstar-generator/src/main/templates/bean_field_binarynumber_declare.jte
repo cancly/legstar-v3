@@ -4,7 +4,7 @@
 @param RenderingBinaryNumber field
 
 @if(field.isArray())
-@template.bean_field_array_declare(field.array())
+@template.bean_field_array_declare(field, field.array())
 @endif
-    @CobolBinaryNumber(cobolName = "${field.cobolName()}"@if(field.signed()), signed = true@endif, totalDigits = ${field.totalDigits()}@if(field.odoObject()), odoObject = true@endif)
+    @CobolBinaryNumber(cobolName = "${field.cobolName()}", order = ${field.ordinal()}@if(field.signed()), signed = true@endif, totalDigits = ${field.totalDigits()}@if(field.odoObject()), odoObject = true@endif)
     private ${field.typeName()}@if(field.isArray())[]@endif ${field.fieldName()};

@@ -8,17 +8,17 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "ARDO01-RECORD")
 public class Ardo01Record {
 
-    @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
+    @CobolZonedDecimal(cobolName = "COM-NUMBER", order = 1, totalDigits = 6)
     private BigDecimal comNumber;
 
-    @CobolString(cobolName = "COM-NAME", charNum = 20)
+    @CobolString(cobolName = "COM-NAME", order = 2, charNum = 20)
     private String comName;
 
-    @CobolBinaryNumber(cobolName = "COM-NBR", totalDigits = 4, odoObject = true)
+    @CobolBinaryNumber(cobolName = "COM-NBR", order = 3, totalDigits = 4, odoObject = true)
     private Short comNbr;
 
-    @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "COM-NBR")
-    @CobolPackedDecimal(cobolName = "COM-ARRAY", signed = true, totalDigits = 15, fractionDigits = 2)
+    @CobolArray(minOccurs=0, maxOccurs=5, order = 4, dependingOn = "COM-NBR")
+    @CobolPackedDecimal(cobolName = "COM-ARRAY", order = 4, signed = true, totalDigits = 15, fractionDigits = 2)
     private BigDecimal[] comArray;
 
     public BigDecimal getComNumber() {

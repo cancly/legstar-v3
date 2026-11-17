@@ -8,10 +8,10 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "ARDO03-RECORD")
 public class Ardo03Record {
 
-    @CobolZonedDecimal(cobolName = "ODO-COUNTER", totalDigits = 5, odoObject = true)
+    @CobolZonedDecimal(cobolName = "ODO-COUNTER", order = 1, totalDigits = 5, odoObject = true)
     private BigDecimal odoCounter;
 
-    @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-COUNTER")
+    @CobolArray(minOccurs=0, maxOccurs=5, order = 2, dependingOn = "ODO-COUNTER")
     private OdoArray[] odoArray;
 
     public BigDecimal getOdoCounter() {
@@ -33,10 +33,10 @@ public class Ardo03Record {
     @CobolGroup(cobolName = "ODO-ARRAY")
     public static class OdoArray {
     
-        @CobolZonedDecimal(cobolName = "ODO-SUB-COUNTER", totalDigits = 3, odoObject = true)
+        @CobolZonedDecimal(cobolName = "ODO-SUB-COUNTER", order = 1, totalDigits = 3, odoObject = true)
         private BigDecimal odoSubCounter;
     
-        @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "ODO-SUB-COUNTER")
+        @CobolArray(minOccurs=0, maxOccurs=5, order = 2, dependingOn = "ODO-SUB-COUNTER")
         private OdoSubArray[] odoSubArray;
     
         public BigDecimal getOdoSubCounter() {
@@ -58,7 +58,7 @@ public class Ardo03Record {
         @CobolGroup(cobolName = "ODO-SUB-ARRAY")
         public static class OdoSubArray {
         
-            @CobolString(cobolName = "FILLER", charNum = 4)
+            @CobolString(cobolName = "FILLER", order = 1, charNum = 4)
             private String filler;
         
             public String getFiller() {

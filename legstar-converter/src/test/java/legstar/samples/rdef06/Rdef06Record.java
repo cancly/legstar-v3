@@ -8,7 +8,7 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "RDEF06-RECORD")
 public class Rdef06Record {
 
-    @CobolZonedDecimal(cobolName = "OPTL-STRUCT-IND", totalDigits = 3, odoObject = true)
+    @CobolZonedDecimal(cobolName = "OPTL-STRUCT-IND", order = 1, totalDigits = 3, odoObject = true)
     private BigDecimal optlStructInd;
 
     private OptlItemChoice optlItemChoice;
@@ -32,10 +32,10 @@ public class Rdef06Record {
     @CobolChoice(cobolName = "OPTL-ITEM", maxBytesLen = 23)
     public static class OptlItemChoice {
     
-        @CobolString(cobolName = "OPTL-ITEM", charNum = 23)
+        @CobolString(cobolName = "OPTL-ITEM", order = 1, charNum = 23)
         private String optlItem;
     
-        @CobolArray(minOccurs=0, maxOccurs=1, dependingOn = "OPTL-STRUCT-IND")
+        @CobolArray(minOccurs=0, maxOccurs=1, order = 1, dependingOn = "OPTL-STRUCT-IND")
         private OptlStruct[] optlStruct;
     
         public String getOptlItem() {
@@ -57,10 +57,10 @@ public class Rdef06Record {
         @CobolGroup(cobolName = "OPTL-STRUCT")
         public static class OptlStruct {
         
-            @CobolString(cobolName = "OPTL-STRUCT-FIELD1", charNum = 18)
+            @CobolString(cobolName = "OPTL-STRUCT-FIELD1", order = 1, charNum = 18)
             private String optlStructField1;
         
-            @CobolString(cobolName = "OPTL-STRUCT-FIELD2", charNum = 5)
+            @CobolString(cobolName = "OPTL-STRUCT-FIELD2", order = 2, charNum = 5)
             private String optlStructField2;
         
             public String getOptlStructField1() {

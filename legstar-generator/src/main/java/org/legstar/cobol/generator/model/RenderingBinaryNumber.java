@@ -15,7 +15,7 @@ import org.legstar.cobol.utils.BytesLenUtils;
  * 
  */
 public record RenderingBinaryNumber(String cobolName, boolean signed, int totalDigits, boolean odoObject,
-		RenderingArray array, String fieldName) implements RenderingItem {
+		RenderingArray array, String fieldName, int ordinal) implements RenderingItem {
 
 	/**
 	 * The corresponding JAVA type name.

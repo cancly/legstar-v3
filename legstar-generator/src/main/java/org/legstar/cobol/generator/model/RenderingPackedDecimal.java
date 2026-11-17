@@ -16,7 +16,7 @@ import org.legstar.cobol.utils.BytesLenUtils;
  * 
  */
 public record RenderingPackedDecimal(String cobolName, boolean signed, int totalDigits, int fractionDigits,
-		boolean odoObject, RenderingArray array, String fieldName) implements RenderingItem {
+		boolean odoObject, RenderingArray array, String fieldName, int ordinal) implements RenderingItem {
 
 	@Override
 	public int maxBytesLen() {

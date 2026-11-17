@@ -18,7 +18,8 @@ import org.legstar.cobol.utils.BytesLenUtils;
  * 
  */
 public record RenderingZonedDecimal(String cobolName, int totalDigits, int fractionDigits, boolean signLeading,
-		boolean signSeparate, boolean blankWhenZero, boolean odoObject, RenderingArray array, String fieldName)
+		boolean signSeparate, boolean blankWhenZero, boolean odoObject, RenderingArray array, String fieldName,
+		int ordinal)
 		implements RenderingItem {
 
 	@Override

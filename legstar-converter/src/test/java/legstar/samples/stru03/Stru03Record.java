@@ -8,16 +8,16 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "STRU03-RECORD")
 public class Stru03Record {
 
-    @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
+    @CobolZonedDecimal(cobolName = "COM-NUMBER", order = 1, totalDigits = 6)
     private BigDecimal comNumber;
 
-    @CobolString(cobolName = "COM-NAME", charNum = 20)
+    @CobolString(cobolName = "COM-NAME", order = 2, charNum = 20)
     private String comName;
 
-    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2, order = 3)
     private BigDecimal comAmount;
 
-    @CobolArray(minOccurs=5, maxOccurs=5)
+    @CobolArray(minOccurs=5, maxOccurs=5, order = 4)
     private ComArray[] comArray;
 
     public BigDecimal getComNumber() {
@@ -55,10 +55,10 @@ public class Stru03Record {
     @CobolGroup(cobolName = "COM-ARRAY")
     public static class ComArray {
     
-        @CobolBinaryNumber(cobolName = "COM-ITEM1", signed = true, totalDigits = 4)
+        @CobolBinaryNumber(cobolName = "COM-ITEM1", order = 1, signed = true, totalDigits = 4)
         private Short comItem1;
     
-        @CobolString(cobolName = "COM-ITEM2", charNum = 2)
+        @CobolString(cobolName = "COM-ITEM2", order = 2, charNum = 2)
         private String comItem2;
     
         public Short getComItem1() {

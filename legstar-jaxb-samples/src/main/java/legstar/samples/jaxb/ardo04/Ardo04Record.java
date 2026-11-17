@@ -11,10 +11,10 @@ import jakarta.xml.bind.annotation.*;
 @XmlType (propOrder={"c_ItemsNumber", "c_Array"})
 public class Ardo04Record {
 
-    @CobolBinaryNumber(cobolName = "C-ITEMS-NUMBER", signed = true, totalDigits = 4, odoObject = true)
+    @CobolBinaryNumber(cobolName = "C-ITEMS-NUMBER", order = 1, signed = true, totalDigits = 4, odoObject = true)
     private Short c_ItemsNumber;
 
-    @CobolArray(minOccurs=1, maxOccurs=250, dependingOn = "C-ITEMS-NUMBER")
+    @CobolArray(minOccurs=1, maxOccurs=250, order = 2, dependingOn = "C-ITEMS-NUMBER")
     private C_Array[] c_Array;
 
     public Short getC_ItemsNumber() {
@@ -37,10 +37,10 @@ public class Ardo04Record {
     @XmlType (propOrder={"c_Item1", "c_Item2"})
     public static class C_Array {
     
-        @CobolString(cobolName = "C-ITEM-1", charNum = 5)
+        @CobolString(cobolName = "C-ITEM-1", order = 1, charNum = 5)
         private String c_Item1;
     
-        @CobolBinaryNumber(cobolName = "C-ITEM-2", signed = true, totalDigits = 4)
+        @CobolBinaryNumber(cobolName = "C-ITEM-2", order = 2, signed = true, totalDigits = 4)
         private Short c_Item2;
     
         public String getC_Item1() {

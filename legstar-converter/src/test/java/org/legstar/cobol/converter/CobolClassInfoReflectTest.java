@@ -33,7 +33,7 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 		assertEquals(1, cfi.length);
 		assertEquals("customerId", cfi[0].name());
 		assertEquals(
-				"@org.legstar.cobol.annotation.CobolZonedDecimal(signSeparate=false, signed=false, fractionDigits=0, odoObject=false, blankWhenZero=false, signLeading=false, cobolName=\"CUSTOMER-ID\", totalDigits=6)",
+				"@org.legstar.cobol.annotation.CobolZonedDecimal(signSeparate=false, signed=false, fractionDigits=0, odoObject=false, blankWhenZero=false, signLeading=false, cobolName=\"CUSTOMER-ID\", order=1, totalDigits=6)",
 				cfi[0].cobolItemType().toString());
 		assertEquals("java.math.BigDecimal", cfi[0].javaType().getName());
 		assertEquals("getCustomerId", cfi[0].getter().getName());
@@ -62,15 +62,15 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 				cfi[0].javaType().getName());
 		assertEquals("getOptlStruct", cfi[0].getter().getName());
 		assertEquals(
-				"@org.legstar.cobol.annotation.CobolArray(dependingOn=\"OPTL-STRUCT-IND\", minOccurs=0, maxOccurs=1)",
+				"@org.legstar.cobol.annotation.CobolArray(dependingOn=\"OPTL-STRUCT-IND\", minOccurs=0, maxOccurs=1, order=1)",
 				cfi[0].cobolArray().toString());
 		assertEquals("optlItem", cfi[1].name());
-		assertEquals("@org.legstar.cobol.annotation.CobolString(cobolName=\"OPTL-ITEM\", charNum=32)",
+		assertEquals("@org.legstar.cobol.annotation.CobolString(cobolName=\"OPTL-ITEM\", order=2, charNum=32)",
 				cfi[1].cobolItemType().toString());
 		assertEquals("[Ljava.lang.String;", cfi[1].javaType().getName());
 		assertEquals("getOptlItem", cfi[1].getter().getName());
 		assertEquals(
-				"@org.legstar.cobol.annotation.CobolArray(dependingOn=\"OPTL-ITEM-IND\", minOccurs=0, maxOccurs=1)",
+				"@org.legstar.cobol.annotation.CobolArray(dependingOn=\"OPTL-ITEM-IND\", minOccurs=0, maxOccurs=1, order=2)",
 				cfi[1].cobolArray().toString());
 	}
 
@@ -102,7 +102,7 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 
 	@CobolGroup(cobolName = "ONE-PRIMTIVE-FIELD")
 	class OnePrimitiveFieldClass {
-		@CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6)
+		@CobolZonedDecimal(cobolName = "CUSTOMER-ID", order = 1, totalDigits = 6)
 		private BigDecimal customerId;
 
 		public BigDecimal getCustomerId() {
@@ -128,13 +128,13 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 
 		@CobolGroup(cobolName = "PERSONAL-DATA")
 		public static class PersonalData {
-			@CobolString(cobolName = "CUSTOMER-NAME", charNum = 20)
+			@CobolString(cobolName = "CUSTOMER-NAME", order = 1, charNum = 20)
 			private String customerName;
 
-			@CobolString(cobolName = "CUSTOMER-ADDRESS", charNum = 20)
+			@CobolString(cobolName = "CUSTOMER-ADDRESS", order = 2, charNum = 20)
 			private String customerAddress;
 
-			@CobolString(cobolName = "CUSTOMER-PHONE", charNum = 8)
+			@CobolString(cobolName = "CUSTOMER-PHONE", order = 3, charNum = 8)
 			private String customerPhone;
 
 			public String getCustomerName() {
@@ -150,11 +150,11 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 
 	@CobolGroup(cobolName = "ARRAY-FIELDS")
 	class ArrayFieldsClass {
-		@CobolArray(minOccurs = 0, maxOccurs = 1, dependingOn = "OPTL-STRUCT-IND")
+		@CobolArray(minOccurs = 0, maxOccurs = 1, order = 1, dependingOn = "OPTL-STRUCT-IND")
 		private OptlStruct[] optlStruct;
 
-		@CobolArray(minOccurs = 0, maxOccurs = 1, dependingOn = "OPTL-ITEM-IND")
-		@CobolString(cobolName = "OPTL-ITEM", charNum = 32)
+		@CobolArray(minOccurs = 0, maxOccurs = 1, order = 2, dependingOn = "OPTL-ITEM-IND")
+		@CobolString(cobolName = "OPTL-ITEM", order = 2, charNum = 32)
 		private String[] optlItem;
 
 		public OptlStruct[] getOptlStruct() {
@@ -176,10 +176,10 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 		@CobolGroup(cobolName = "OPTL-STRUCT")
 		public static class OptlStruct {
 
-			@CobolString(cobolName = "OPTL-STRUCT-FIELD1", charNum = 18)
+			@CobolString(cobolName = "OPTL-STRUCT-FIELD1", order = 1, charNum = 18)
 			private String optlStructField1;
 
-			@CobolString(cobolName = "OPTL-STRUCT-FIELD2", charNum = 5)
+			@CobolString(cobolName = "OPTL-STRUCT-FIELD2", order = 2, charNum = 5)
 			private String optlStructField2;
 
 			public String getOptlStructField1() {
@@ -205,10 +205,10 @@ public class CobolClassInfoReflectTest extends CobolTestBase {
 	@CobolChoice(cobolName = "CHOICE1-ALT1", maxBytesLen = 4)
 	static class ChoiceClass {
 
-		@CobolString(cobolName = "CHOICE1-ALT1", charNum = 4)
+		@CobolString(cobolName = "CHOICE1-ALT1", order = 1, charNum = 4)
 		private String choice1Alt1;
 
-		@CobolZonedDecimal(cobolName = "CHOICE1-ALT2", totalDigits = 4, fractionDigits = 3)
+		@CobolZonedDecimal(cobolName = "CHOICE1-ALT2", order = 1, totalDigits = 4, fractionDigits = 3)
 		private BigDecimal choice1Alt2;
 
 		public String getChoice1Alt1() {

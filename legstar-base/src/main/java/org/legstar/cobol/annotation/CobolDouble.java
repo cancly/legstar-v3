@@ -20,4 +20,6 @@ public @interface CobolDouble {
 	 */
 	String cobolName();
 
+	int order();
+
 }

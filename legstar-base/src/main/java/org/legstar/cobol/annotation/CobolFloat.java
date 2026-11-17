@@ -15,9 +15,11 @@ public @interface CobolFloat {
 
 	/**
 	 * Cobol name.
-	 * 
+	 *
 	 * @return the cobol name
 	 */
 	String cobolName();
+
+	int order();
 
 }

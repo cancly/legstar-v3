@@ -31,13 +31,13 @@ public class Rdef05Record {
     @CobolChoice(cobolName = "CHOICE1-ALT1", maxBytesLen = 4)
     public static class Choice1Alt1Choice {
     
-        @CobolString(cobolName = "CHOICE1-ALT1", charNum = 4)
+        @CobolString(cobolName = "CHOICE1-ALT1", order = 1, charNum = 4)
         private String choice1Alt1;
     
-        @CobolZonedDecimal(cobolName = "CHOICE1-ALT2", totalDigits = 4, fractionDigits = 3)
+        @CobolZonedDecimal(cobolName = "CHOICE1-ALT2", order = 1, totalDigits = 4, fractionDigits = 3)
         private BigDecimal choice1Alt2;
     
-        @CobolZonedDecimal(cobolName = "CHOICE1-ALT3", totalDigits = 4, fractionDigits = 2)
+        @CobolZonedDecimal(cobolName = "CHOICE1-ALT3", order = 1, totalDigits = 4, fractionDigits = 2)
         private BigDecimal choice1Alt3;
     
         public String getChoice1Alt1() {
@@ -80,16 +80,16 @@ public class Rdef05Record {
     @CobolChoice(cobolName = "CHOICE2-ALT1", maxBytesLen = 4)
     public static class Choice2Alt1Choice {
     
-        @CobolString(cobolName = "CHOICE2-ALT1", charNum = 4)
+        @CobolString(cobolName = "CHOICE2-ALT1", order = 1, charNum = 4)
         private String choice2Alt1;
     
-        @CobolZonedDecimal(cobolName = "CHOICE2-ALT2", totalDigits = 4, fractionDigits = 3)
+        @CobolZonedDecimal(cobolName = "CHOICE2-ALT2", order = 1, totalDigits = 4, fractionDigits = 3)
         private BigDecimal choice2Alt2;
     
-        @CobolZonedDecimal(cobolName = "CHOICE2-ALT3", totalDigits = 4, fractionDigits = 2)
+        @CobolZonedDecimal(cobolName = "CHOICE2-ALT3", order = 1, totalDigits = 4, fractionDigits = 2)
         private BigDecimal choice2Alt3;
     
-        @CobolZonedDecimal(cobolName = "CHOICE2-ALT4", totalDigits = 4, fractionDigits = 1)
+        @CobolZonedDecimal(cobolName = "CHOICE2-ALT4", order = 1, totalDigits = 4, fractionDigits = 1)
         private BigDecimal choice2Alt4;
     
         public String getChoice2Alt1() {

@@ -4,7 +4,7 @@
 @param RenderingPackedDecimal field
 
 @if(field.isArray())
-@template.bean_field_array_declare(field.array())
+@template.bean_field_array_declare(field, field.array())
 @endif
-    @CobolPackedDecimal(cobolName = "${field.cobolName()}"@if(field.signed()), signed = true@endif, totalDigits = ${field.totalDigits()}@if(field.fractionDigits() > 0), fractionDigits = ${field.fractionDigits()}@endif@if(field.odoObject()), odoObject = true@endif)
+    @CobolPackedDecimal(cobolName = "${field.cobolName()}", order = ${field.ordinal()}@if(field.signed()), signed = true@endif, totalDigits = ${field.totalDigits()}@if(field.fractionDigits() > 0), fractionDigits = ${field.fractionDigits()}@endif@if(field.odoObject()), odoObject = true@endif)
     private BigDecimal@if(field.isArray())[]@endif ${field.fieldName()};

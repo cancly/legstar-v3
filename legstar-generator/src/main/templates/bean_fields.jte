@@ -62,3 +62,7 @@
 @if(model.withToString())
 @template.bean_fields_tostring(model, fields)
 @endif
+<%-- to Positional string --%>
+@if(model.withToPositionalString())
+@template.bean_fields_topositionalstring(model, fields)
+@endif

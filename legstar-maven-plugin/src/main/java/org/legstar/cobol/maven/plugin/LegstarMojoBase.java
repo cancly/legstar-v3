@@ -66,6 +66,13 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 	private boolean withToString;
 
 	/**
+	 * True if the generated java beans must implement a toPositionalString method for each
+	 * class and nested class.
+	 */
+	@Parameter(property = "withToPositionalString")
+	private boolean withToPositionalString;
+
+	/**
 	 * True if the cobol copybooks are in free code format (not restricted to
 	 * columns 8-72).
 	 */
@@ -207,6 +214,15 @@ public abstract class LegstarMojoBase extends AbstractMojo {
 	 */
 	public boolean isWithToString() {
 		return withToString;
+	}
+
+	/**
+	 * Whether generated java beans must implement a toPositionalString method
+	 *
+	 * @return true if the generated java beans must implement a toPositionalString method
+	 */
+	public boolean isWithToPositionalString() {
+		return withToPositionalString;
 	}
 
 	/**

@@ -19,6 +19,7 @@ public @interface CobolPackedDecimal {
 	 * @return the cobol name
 	 */
 	String cobolName();
+	int order();
 
 	/**
 	 * Signed or unsigned.

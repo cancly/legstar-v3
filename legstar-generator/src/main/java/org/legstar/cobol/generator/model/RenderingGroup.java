@@ -10,7 +10,8 @@ import java.util.List;
  * @param array     If this is an array, null otherwise
  * @param fieldName java name
  */
-public record RenderingGroup(String cobolName, List<RenderingItem> fields, RenderingArray array, String fieldName)
+public record RenderingGroup(String cobolName, List<RenderingItem> fields, RenderingArray array, String fieldName,
+		int ordinal)
 		implements RenderingItem {
 
 	@Override

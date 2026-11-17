@@ -48,7 +48,7 @@ public class RenderingModelGenerator {
 	 * @return a rendering model ready for code generation
 	 */
 	public RenderingModel generate(String source, CobolDataEntry entry, String targetPackagePrefix) {
-		return generate(source, entry, targetPackagePrefix, false, RenderingOptions.defaults());
+		return generate(source, entry, targetPackagePrefix, false, RenderingOptions.defaults(), false);
 	}
 
 	/**
@@ -72,11 +72,11 @@ public class RenderingModelGenerator {
 	 * @return a rendering model ready for code generation
 	 */
 	public RenderingModel generate(String source, CobolDataEntry dataEntry, String targetPackagePrefix,
-			boolean withToString, RenderingOptions options) {
+			boolean withToString, RenderingOptions options, boolean withToPositionalString) {
 		odoObjects = odoObjects(dataEntry);
 		redefObjects = redefObjects(dataEntry);
-		RenderingItem rootItem = generate(dataEntry, fieldName(dataEntry.cobolName()));
-		return new RenderingModel(packageName(source, targetPackagePrefix), rootItem, withToString, options);
+		RenderingItem rootItem = generate(dataEntry, fieldName(dataEntry.cobolName()), 1);
+		return new RenderingModel(packageName(source, targetPackagePrefix), rootItem, withToString, options, withToPositionalString);
 	}
 
 	/**
@@ -110,22 +110,22 @@ public class RenderingModelGenerator {
 	 * <p>
 	 * Might require analyzing the picture clause and usage clause.
 	 */
-	private RenderingItem generate(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingItem generate(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		if (dataEntry.isGroup()) {
-			return generateGroup(dataEntry, fieldName);
+			return generateGroup(dataEntry, fieldName, ordinal);
 		}
 		if (dataEntry.usage() != null) {
 			switch (dataEntry.usage()) {
 			case BINARY:
-				return generateBinaryNumber(dataEntry, fieldName);
+				return generateBinaryNumber(dataEntry, fieldName, ordinal);
 			case PACKED_DECIMAL:
-				return generatePackedDecimal(dataEntry, fieldName);
+				return generatePackedDecimal(dataEntry, fieldName, ordinal);
 			case DOUBLE_FLOAT:
-				return generateDouble(dataEntry, fieldName);
+				return generateDouble(dataEntry, fieldName, ordinal);
 			case FLOAT:
-				return generateFloat(dataEntry, fieldName);
+				return generateFloat(dataEntry, fieldName, ordinal);
 			case NATIVE_BINARY:
-				return generateBinaryNumber(dataEntry, fieldName);
+				return generateBinaryNumber(dataEntry, fieldName, ordinal);
 			case DISPLAY:
 			case DISPLAY1:
 			case NATIONAL:
@@ -141,9 +141,9 @@ public class RenderingModelGenerator {
 			}
 		}
 		if (PictureUtils.isCompNumeric(dataEntry.picture())) {
-			return generateZonedDecimal(dataEntry, fieldName);
+			return generateZonedDecimal(dataEntry, fieldName, ordinal);
 		} else if (PictureUtils.isAlphaNumeric(dataEntry.picture())) {
-			return generateString(dataEntry, fieldName);
+			return generateString(dataEntry, fieldName, ordinal);
 		} else {
 			throw new RenderingModelGeneratorException("Unable to recognize this data entry", groupStack, dataEntry);
 		}
@@ -157,10 +157,11 @@ public class RenderingModelGenerator {
 	 * Group children which are redefined along with the definition object are
 	 * grouped in a RenderingChoice item.
 	 */
-	private RenderingGroup generateGroup(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingGroup generateGroup(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		groupStack.add(dataEntry.cobolName());
 		List<RenderingItem> children = new ArrayList<>();
 		ChoiceBuilder choiceBuilder = null;
+		int childOrdinal = 1;
 		for (CobolDataEntry child : dataEntry.children()) {
 			if (child.isConditionName() || child.isRenames()) {
 				continue;
@@ -172,7 +173,7 @@ public class RenderingModelGenerator {
 				}
 				// Add a new alternative in the pending choice being built
 				String alternativeFieldName = uniqueFieldName(child.cobolName(), choiceBuilder.choiceAlternatives());
-				choiceBuilder.add(generate(child, alternativeFieldName));
+				choiceBuilder.add(generate(child, alternativeFieldName, childOrdinal++));
 			} else {
 				if (choiceBuilder != null) {
 					// Terminate any pending choice
@@ -186,11 +187,12 @@ public class RenderingModelGenerator {
 							child.cobolName(), //
 							new ArrayList<>(), //
 							generateArray(child), //
-							childFieldName + "Choice" //
+							childFieldName + "Choice", //
+							childOrdinal //
 					);
-					choiceBuilder.add(generate(child, childFieldName));
+					choiceBuilder.add(generate(child, childFieldName, childOrdinal++));
 				} else {
-					children.add(generate(child, childFieldName));
+					children.add(generate(child, childFieldName, childOrdinal++));
 				}
 			}
 		}
@@ -199,21 +201,22 @@ public class RenderingModelGenerator {
 			children.add(choiceBuilder.build());
 		}
 		groupStack.pop();
-		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry), fieldName);
+		return new RenderingGroup(dataEntry.cobolName(), children, generateArray(dataEntry), fieldName, ordinal);
 	}
 
 	/**
 	 * Accumulates choice alternatives as they are encountered.
 	 */
 	static record ChoiceBuilder(String choiceCobolName, List<RenderingItem> choiceAlternatives,
-			RenderingArray choiceArray, String choiceFieldName) {
+			RenderingArray choiceArray, String choiceFieldName, int choiceOrdinal) {
 
 		void add(RenderingItem alternative) {
 			choiceAlternatives().add(alternative);
 		}
 
 		RenderingChoice build() {
-			return new RenderingChoice(choiceCobolName(), choiceAlternatives(), choiceArray(), choiceFieldName());
+			return new RenderingChoice(choiceCobolName(), choiceAlternatives(), choiceArray(), choiceFieldName(),
+					choiceOrdinal());
 		}
 
 	}
@@ -221,10 +224,10 @@ public class RenderingModelGenerator {
 	/**
 	 * An alphanumeric item
 	 */
-	private RenderingString generateString(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingString generateString(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
 			PictureUtils.AlphaNumeric n = PictureUtils.alphaNumeric(dataEntry.picture());
-			return new RenderingString(dataEntry.cobolName(), n.charNum(), generateArray(dataEntry), fieldName);
+			return new RenderingString(dataEntry.cobolName(), n.charNum(), generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
@@ -233,11 +236,11 @@ public class RenderingModelGenerator {
 	/**
 	 * A COMP item
 	 */
-	private RenderingBinaryNumber generateBinaryNumber(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingBinaryNumber generateBinaryNumber(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
 			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
 			return new RenderingBinaryNumber(dataEntry.cobolName(), n.signed(), n.totalDigits(), isOdoObject(dataEntry),
-					generateArray(dataEntry), fieldName);
+					generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
@@ -246,12 +249,12 @@ public class RenderingModelGenerator {
 	/**
 	 * A DISPLAY zoned decimal item
 	 */
-	private RenderingZonedDecimal generateZonedDecimal(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingZonedDecimal generateZonedDecimal(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
 			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
 			return new RenderingZonedDecimal(dataEntry.cobolName(), n.totalDigits(), n.fractionDigits(),
 					dataEntry.signLeading(), dataEntry.signSeparate(), dataEntry.blankWhenZero(),
-					isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+					isOdoObject(dataEntry), generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
@@ -260,11 +263,11 @@ public class RenderingModelGenerator {
 	/**
 	 * A COMP-3 item
 	 */
-	private RenderingPackedDecimal generatePackedDecimal(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingPackedDecimal generatePackedDecimal(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
 			PictureUtils.CompNumeric n = PictureUtils.compNumeric(dataEntry.picture());
 			return new RenderingPackedDecimal(dataEntry.cobolName(), n.signed(), n.totalDigits(), n.fractionDigits(),
-					isOdoObject(dataEntry), generateArray(dataEntry), fieldName);
+					isOdoObject(dataEntry), generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
@@ -273,9 +276,9 @@ public class RenderingModelGenerator {
 	/**
 	 * A COMP-1 item
 	 */
-	private RenderingFloat generateFloat(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingFloat generateFloat(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
-			return new RenderingFloat(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+			return new RenderingFloat(dataEntry.cobolName(), generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}
@@ -284,9 +287,9 @@ public class RenderingModelGenerator {
 	/**
 	 * A COMP-2 item
 	 */
-	private RenderingDouble generateDouble(CobolDataEntry dataEntry, String fieldName) {
+	private RenderingDouble generateDouble(CobolDataEntry dataEntry, String fieldName, int ordinal) {
 		try {
-			return new RenderingDouble(dataEntry.cobolName(), generateArray(dataEntry), fieldName);
+			return new RenderingDouble(dataEntry.cobolName(), generateArray(dataEntry), fieldName, ordinal);
 		} catch (Exception e) {
 			throw new RenderingModelGeneratorException(e, groupStack, dataEntry);
 		}

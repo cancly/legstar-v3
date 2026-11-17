@@ -34,7 +34,8 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
 					.setFreeCodeFormat(isFreeCodeFormat());
 			CobolBeanGeneratorConfig config = new CobolBeanGeneratorConfig(parserConfig) //
 					.setPackageNamePrefix(getPackageNamePrefix()) //
-					.setWithToString(isWithToString());
+					.setWithToString(isWithToString()) //
+					.setWithToPositionalString(isWithToPositionalString());
 			CobolBeanGenerator gen = new CobolBeanGenerator(config);
 			gen.generateAndWrite(baseName, reader, output);
 

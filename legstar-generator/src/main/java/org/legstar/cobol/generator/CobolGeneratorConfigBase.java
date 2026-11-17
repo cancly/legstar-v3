@@ -20,6 +20,11 @@ public abstract class CobolGeneratorConfigBase<T extends CobolGeneratorConfigBas
 	private boolean withToString;
 
 	/**
+	 * Add a toPositionalString on each class and nested class generated
+	 */
+	private boolean withToPositionalString;
+
+	/**
 	 * Configuration parameters for the copybook parser.
 	 */
 	private final CopybookParserConfig parserConfig;
@@ -92,4 +97,24 @@ public abstract class CobolGeneratorConfigBase<T extends CobolGeneratorConfigBas
 	 */
 	public abstract T self();
 
+	/**
+	 * Should the generated bean include a PositionalPositional method.
+	 *
+	 * @return true if the generated bean include a Positional method
+	 */
+	@Override
+	public boolean withToPositionalString() {
+		return withToPositionalString;
+	}
+
+	/**
+	 * Set whether the generated bean should include a Positional method
+	 *
+	 * @param withToPositionalString should the generated bean include a Positional method
+	 * @return actual instance
+	 */
+	public T setWithToPositionalString(boolean withToPositionalString) {
+		this.withToPositionalString = withToPositionalString;
+		return self();
+	}
 }

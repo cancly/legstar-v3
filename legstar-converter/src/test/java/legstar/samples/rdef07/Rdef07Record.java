@@ -8,10 +8,10 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "RDEF07-RECORD")
 public class Rdef07Record {
 
-    @CobolZonedDecimal(cobolName = "COM-COUNTER", totalDigits = 3, odoObject = true)
+    @CobolZonedDecimal(cobolName = "COM-COUNTER", order = 1, totalDigits = 3, odoObject = true)
     private BigDecimal comCounter;
 
-    @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "COM-COUNTER")
+    @CobolArray(minOccurs=0, maxOccurs=5, order = 2, dependingOn = "COM-COUNTER")
     private ComStruct[] comStruct;
 
     public BigDecimal getComCounter() {
@@ -46,10 +46,10 @@ public class Rdef07Record {
         @CobolChoice(cobolName = "COM-ALT1", maxBytesLen = 2)
         public static class ComAlt1Choice {
         
-            @CobolPackedDecimal(cobolName = "COM-ALT1", totalDigits = 3)
+            @CobolPackedDecimal(cobolName = "COM-ALT1", totalDigits = 3, order = 1)
             private BigDecimal comAlt1;
         
-            @CobolString(cobolName = "COM-ALT2", charNum = 2)
+            @CobolString(cobolName = "COM-ALT2", order = 1, charNum = 2)
             private String comAlt2;
         
             public BigDecimal getComAlt1() {

@@ -12,7 +12,7 @@ import java.util.List;
  * @param fieldName    java name
  */
 public record RenderingChoice(String cobolName, List<RenderingItem> alternatives, RenderingArray array,
-		String fieldName) implements RenderingItem {
+		String fieldName, int ordinal) implements RenderingItem {
 
 	@Override
 	public int maxBytesLen() {

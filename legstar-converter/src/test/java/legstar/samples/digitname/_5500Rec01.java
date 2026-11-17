@@ -8,10 +8,10 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "5500-REC-01")
 public class _5500Rec01 {
 
-    @CobolString(cobolName = "5500-REC-TYPE", charNum = 1)
+    @CobolString(cobolName = "5500-REC-TYPE", charNum = 1, order = 1)
     private String _5500RecType;
 
-    @CobolString(cobolName = "5500-PLAN-NUM", charNum = 6)
+    @CobolString(cobolName = "5500-PLAN-NUM", charNum = 6, order = 2)
     private String _5500PlanNum;
 
     public String get_5500RecType() {

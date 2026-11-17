@@ -8,58 +8,58 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "ALLTYPES")
 public class Alltypes {
 
-    @CobolString(cobolName = "S-STRING", charNum = 4)
+    @CobolString(cobolName = "S-STRING", charNum = 4, order = 1)
     private String s_String;
 
-    @CobolString(cobolName = "S-BINARY", charNum = 4)
+    @CobolString(cobolName = "S-BINARY", charNum = 4, order = 2)
     private String s_Binary;
 
-    @CobolBinaryNumber(cobolName = "S-SHORT", signed = true, totalDigits = 4)
+    @CobolBinaryNumber(cobolName = "S-SHORT", signed = true, totalDigits = 4, order = 3)
     private Short s_Short;
 
-    @CobolBinaryNumber(cobolName = "S-USHORT", totalDigits = 4)
+    @CobolBinaryNumber(cobolName = "S-USHORT", totalDigits = 4, order = 4)
     private Short s_Ushort;
 
-    @CobolBinaryNumber(cobolName = "S-INT", signed = true, totalDigits = 9)
+    @CobolBinaryNumber(cobolName = "S-INT", signed = true, totalDigits = 9, order = 5)
     private Integer s_Int;
 
-    @CobolBinaryNumber(cobolName = "S-UINT", totalDigits = 9)
+    @CobolBinaryNumber(cobolName = "S-UINT", totalDigits = 9, order = 6)
     private Integer s_Uint;
 
-    @CobolBinaryNumber(cobolName = "S-LONG", signed = true, totalDigits = 18)
+    @CobolBinaryNumber(cobolName = "S-LONG", signed = true, totalDigits = 18, order = 7)
     private Long s_Long;
 
-    @CobolBinaryNumber(cobolName = "S-ULONG", totalDigits = 18)
+    @CobolBinaryNumber(cobolName = "S-ULONG", totalDigits = 18, order = 8)
     private Long s_Ulong;
 
-    @CobolPackedDecimal(cobolName = "S-PDECIMAL", totalDigits = 9, fractionDigits = 2)
+    @CobolPackedDecimal(cobolName = "S-PDECIMAL", totalDigits = 9, fractionDigits = 2, order = 9)
     private BigDecimal s_Pdecimal;
 
-    @CobolFloat(cobolName = "S-FLOAT")
+    @CobolFloat(cobolName = "S-FLOAT", order = 10)
     private Float s_Float;
 
-    @CobolDouble(cobolName = "S-DOUBLE")
+    @CobolDouble(cobolName = "S-DOUBLE", order = 11)
     private Double s_Double;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED", signed = true, totalDigits = 5, fractionDigits = 2)
+    @CobolZonedDecimal(cobolName = "S-ZONED", signed = true, totalDigits = 5, fractionDigits = 2, order = 12)
     private BigDecimal s_Zoned;
 
-    @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2)
+    @CobolZonedDecimal(cobolName = "S-UZONED", totalDigits = 5, fractionDigits = 2, order = 13)
     private BigDecimal s_Uzoned;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-SL", signed = true, totalDigits = 3, signLeading = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-SL", signed = true, totalDigits = 3, signLeading = true, order = 14)
     private BigDecimal s_ZonedSl;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-ST", signed = true, totalDigits = 2)
+    @CobolZonedDecimal(cobolName = "S-ZONED-ST", signed = true, totalDigits = 2, order = 15)
     private BigDecimal s_ZonedSt;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-SLS", signed = true, totalDigits = 1, signLeading = true, signSeparate = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-SLS", signed = true, totalDigits = 1, signLeading = true, signSeparate = true, order = 16)
     private BigDecimal s_ZonedSls;
 
-    @CobolZonedDecimal(cobolName = "S-ZONED-STS", signed = true, totalDigits = 2, signSeparate = true)
+    @CobolZonedDecimal(cobolName = "S-ZONED-STS", signed = true, totalDigits = 2, signSeparate = true, order = 17)
     private BigDecimal s_ZonedSts;
 
-    @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true)
+    @CobolZonedDecimal(cobolName = "S-UZONED-BWZ", totalDigits = 5, fractionDigits = 2, blankWhenZero = true, order = 18)
     private BigDecimal s_UzonedBwz;
 
     public String getS_String() {

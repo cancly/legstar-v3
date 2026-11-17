@@ -31,31 +31,31 @@ public class RecA {
     @CobolGroup(cobolName = "REC-A-HEADER")
     public static class RecAHeader {
     
-        @CobolString(cobolName = "FLD-01", charNum = 4)
+        @CobolString(cobolName = "FLD-01", charNum = 4, order = 1)
         private String fld01;
     
-        @CobolString(cobolName = "FLD-02", charNum = 2)
+        @CobolString(cobolName = "FLD-02", charNum = 2, order = 2)
         private String fld02;
     
-        @CobolString(cobolName = "FLD-03", charNum = 8)
+        @CobolString(cobolName = "FLD-03", charNum = 8, order = 3)
         private String fld03;
     
-        @CobolString(cobolName = "FLD-04", charNum = 3)
+        @CobolString(cobolName = "FLD-04", charNum = 3, order = 4)
         private String fld04;
     
-        @CobolZonedDecimal(cobolName = "FLD-05", totalDigits = 6)
+        @CobolZonedDecimal(cobolName = "FLD-05", totalDigits = 6, order = 5)
         private BigDecimal fld05;
     
-        @CobolString(cobolName = "FLD-06", charNum = 1)
+        @CobolString(cobolName = "FLD-06", charNum = 1, order = 6)
         private String fld06;
     
-        @CobolZonedDecimal(cobolName = "FLD-07", totalDigits = 5)
+        @CobolZonedDecimal(cobolName = "FLD-07", totalDigits = 5, order = 7)
         private BigDecimal fld07;
     
-        @CobolString(cobolName = "FLD-08", charNum = 2)
+        @CobolString(cobolName = "FLD-08", charNum = 2, order = 8)
         private String fld08;
     
-        @CobolString(cobolName = "FLD-09-REC-TYPE", charNum = 1)
+        @CobolString(cobolName = "FLD-09-REC-TYPE", charNum = 1, order = 9)
         private String fld09RecType;
     
         public String getFld01() {
@@ -152,10 +152,10 @@ public class RecA {
     @CobolGroup(cobolName = "REC-A-DATA")
     public static class RecAData {
     
-        @CobolString(cobolName = "FLD-10", charNum = 35)
+        @CobolString(cobolName = "FLD-10", charNum = 35, order = 1)
         private String fld10;
     
-        @CobolString(cobolName = "FLD-11", charNum = 1)
+        @CobolString(cobolName = "FLD-11", charNum = 1, order = 2)
         private String fld11;
     
         public String getFld10() {

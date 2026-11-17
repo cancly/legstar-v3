@@ -8,7 +8,7 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "RDEF01-RECORD")
 public class Rdef01Record {
 
-    @CobolBinaryNumber(cobolName = "COM-SELECT", totalDigits = 4)
+    @CobolBinaryNumber(cobolName = "COM-SELECT", totalDigits = 4, order=1)
     private Short comSelect;
 
     private ComDetail1Choice comDetail1Choice;
@@ -55,7 +55,7 @@ public class Rdef01Record {
         @CobolGroup(cobolName = "COM-DETAIL1")
         public static class ComDetail1 {
         
-            @CobolString(cobolName = "COM-NAME", charNum = 10)
+            @CobolString(cobolName = "COM-NAME", charNum = 10, order=2)
             private String comName;
         
             public String getComName() {
@@ -80,7 +80,7 @@ public class Rdef01Record {
         @CobolGroup(cobolName = "COM-DETAIL2")
         public static class ComDetail2 {
         
-            @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+            @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2, order=1)
             private BigDecimal comAmount;
         
             public BigDecimal getComAmount() {

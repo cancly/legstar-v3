@@ -4,7 +4,7 @@
 @param RenderingString field
 
 @if(field.isArray())
-@template.bean_field_array_declare(field.array())
+@template.bean_field_array_declare(field, field.array())
 @endif
-    @CobolString(cobolName = "${field.cobolName()}", charNum = ${field.charNum()})
+    @CobolString(cobolName = "${field.cobolName()}", order = ${field.ordinal()}, charNum = ${field.charNum()})
     private String@if(field.isArray())[]@endif ${field.fieldName()};

@@ -42,4 +42,7 @@ public @interface CobolBinaryNumber {
 	 * @return true if this gives the dimension of a variable size array
 	 */
 	boolean odoObject() default false;
+
+	int order();
+
 }

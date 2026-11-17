@@ -10,7 +10,7 @@ public class Rdef04Record {
 
     private OuterRedefinesLongChoice outerRedefinesLongChoice;
 
-    @CobolString(cobolName = "FOOTER", charNum = 1)
+    @CobolString(cobolName = "FOOTER", order = 2, charNum = 1)
     private String footer;
 
     public OuterRedefinesLongChoice getOuterRedefinesLongChoice() {
@@ -32,7 +32,7 @@ public class Rdef04Record {
     @CobolChoice(cobolName = "OUTER-REDEFINES-LONG", maxBytesLen = 10)
     public static class OuterRedefinesLongChoice {
     
-        @CobolString(cobolName = "OUTER-REDEFINES-LONG", charNum = 10)
+        @CobolString(cobolName = "OUTER-REDEFINES-LONG", order = 1, charNum = 10)
         private String outerRedefinesLong;
     
         private OuterRedefinesShort outerRedefinesShort;
@@ -69,10 +69,10 @@ public class Rdef04Record {
             @CobolChoice(cobolName = "INNER-REDEFINES-LONG", maxBytesLen = 5)
             public static class InnerRedefinesLongChoice {
             
-                @CobolString(cobolName = "INNER-REDEFINES-LONG", charNum = 5)
+                @CobolString(cobolName = "INNER-REDEFINES-LONG", order = 1, charNum = 5)
                 private String innerRedefinesLong;
             
-                @CobolString(cobolName = "INNER-REDEFINES-SHORT", charNum = 3)
+                @CobolString(cobolName = "INNER-REDEFINES-SHORT", order = 1, charNum = 3)
                 private String innerRedefinesShort;
             
                 public String getInnerRedefinesLong() {

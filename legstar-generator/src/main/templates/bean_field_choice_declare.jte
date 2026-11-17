@@ -4,6 +4,6 @@
 @param RenderingChoice field
 
 @if(field.isArray())
-@template.bean_field_array_declare(field.array())
+@template.bean_field_array_declare(field, field.array())
 @endif
     private ${field.className()}@if(field.isArray())[]@endif ${field.fieldName()};

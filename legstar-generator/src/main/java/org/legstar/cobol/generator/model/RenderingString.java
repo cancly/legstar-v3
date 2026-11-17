@@ -9,7 +9,7 @@ package org.legstar.cobol.generator.model;
  * @param fieldName java name
  * 
  */
-public record RenderingString(String cobolName, int charNum, RenderingArray array, String fieldName)
+public record RenderingString(String cobolName, int charNum, RenderingArray array, String fieldName, int ordinal)
 		implements RenderingItem {
 
 	@Override

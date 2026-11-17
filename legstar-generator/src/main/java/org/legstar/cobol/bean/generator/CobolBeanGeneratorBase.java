@@ -85,7 +85,7 @@ public abstract class CobolBeanGeneratorBase {
 		CobolDataEntry groupEntry = parse(inputSource, reader);
 		RenderingModel renderingModel = new RenderingModelGenerator() //
 				.generate(inputSource, groupEntry, config.packageNamePrefix(), config.withToString(),
-						renderingOptions());
+						renderingOptions(), config.withToPositionalString());
 		generate(renderingModel, writer);
 		return new Result(renderingModel.package_name(), renderingModel.root_item().className());
 	}

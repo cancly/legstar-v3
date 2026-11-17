@@ -10,7 +10,7 @@ import org.legstar.cobol.utils.BytesLenUtils;
  * @param fieldName   java name
  * 
  */
-public record RenderingFloat(String cobolName, RenderingArray array, String fieldName) implements RenderingItem {
+public record RenderingFloat(String cobolName, RenderingArray array, String fieldName, int ordinal) implements RenderingItem {
 
 	@Override
 	public int maxBytesLen() {

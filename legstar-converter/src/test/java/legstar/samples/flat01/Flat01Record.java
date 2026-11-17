@@ -8,13 +8,13 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "FLAT01-RECORD")
 public class Flat01Record {
 
-    @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
+    @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6, order = 1)
     private BigDecimal comNumber;
 
-    @CobolString(cobolName = "COM-NAME", charNum = 20)
+    @CobolString(cobolName = "COM-NAME", charNum = 20, order = 2)
     private String comName;
 
-    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2, order = 3)
     private BigDecimal comAmount;
 
     public BigDecimal getComNumber() {

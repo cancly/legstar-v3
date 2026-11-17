@@ -6,6 +6,13 @@ package org.legstar.cobol.generator.model;
 public interface RenderingItem {
 
 	/**
+	 * The ordinal position of this item within its parent group or choice.
+	 * 
+	 * @return the 1-based ordinal position
+	 */
+	int ordinal();
+
+	/**
 	 * A unique java field name for this item with its parent group or choice
 	 * 
 	 * @return the java name.

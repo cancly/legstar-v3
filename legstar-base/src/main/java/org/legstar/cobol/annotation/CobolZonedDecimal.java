@@ -26,6 +26,7 @@ public @interface CobolZonedDecimal {
 	 * @return total number of digits
 	 */
 	int totalDigits();
+	int order();
 
 	/**
 	 * Number of fraction digits

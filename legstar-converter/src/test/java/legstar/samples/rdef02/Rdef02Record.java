@@ -12,7 +12,7 @@ public class Rdef02Record {
 
     private ComDetail1Choice comDetail1Choice;
 
-    @CobolPackedDecimal(cobolName = "COM-ITEM3", totalDigits = 7, fractionDigits = 2)
+    @CobolPackedDecimal(cobolName = "COM-ITEM3", totalDigits = 7, fractionDigits = 2, order = 3)
     private BigDecimal comItem3;
 
     public Rdef02Key getRdef02Key() {
@@ -44,7 +44,7 @@ public class Rdef02Record {
     
         private Rdef02Item1Choice rdef02Item1Choice;
     
-        @CobolBinaryNumber(cobolName = "COM-SELECT", totalDigits = 4)
+        @CobolBinaryNumber(cobolName = "COM-SELECT", order = 2, totalDigits = 4)
         private Short comSelect;
     
         public Rdef02Item1Choice getRdef02Item1Choice() {
@@ -66,10 +66,10 @@ public class Rdef02Record {
         @CobolChoice(cobolName = "RDEF02-ITEM1", maxBytesLen = 6)
         public static class Rdef02Item1Choice {
         
-            @CobolPackedDecimal(cobolName = "RDEF02-ITEM1", signed = true, totalDigits = 10)
+            @CobolPackedDecimal(cobolName = "RDEF02-ITEM1", signed = true, totalDigits = 10, order = 1)
             private BigDecimal rdef02Item1;
         
-            @CobolString(cobolName = "RDEF02-ITEM2", charNum = 6)
+            @CobolString(cobolName = "RDEF02-ITEM2", order = 1, charNum = 6)
             private String rdef02Item2;
         
             public BigDecimal getRdef02Item1() {
@@ -138,7 +138,7 @@ public class Rdef02Record {
         @CobolGroup(cobolName = "COM-DETAIL1")
         public static class ComDetail1 {
         
-            @CobolString(cobolName = "COM-NAME", charNum = 10)
+            @CobolString(cobolName = "COM-NAME", order = 1, charNum = 10)
             private String comName;
         
             public String getComName() {
@@ -163,10 +163,10 @@ public class Rdef02Record {
         @CobolGroup(cobolName = "COM-DETAIL2")
         public static class ComDetail2 {
         
-            @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+            @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2, order = 1)
             private BigDecimal comAmount;
         
-            @CobolString(cobolName = "FILLER", charNum = 6)
+            @CobolString(cobolName = "FILLER", order = 2, charNum = 6)
             private String filler;
         
             public BigDecimal getComAmount() {

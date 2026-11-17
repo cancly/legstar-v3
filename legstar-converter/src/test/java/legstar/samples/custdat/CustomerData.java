@@ -8,7 +8,7 @@ import org.legstar.cobol.annotation.*;
 @CobolGroup(cobolName = "CUSTOMER-DATA")
 public class CustomerData {
 
-    @CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6)
+    @CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6, order = 1)
     private BigDecimal customerId;
 
     private PersonalData personalData;
@@ -42,13 +42,13 @@ public class CustomerData {
     @CobolGroup(cobolName = "PERSONAL-DATA")
     public static class PersonalData {
     
-        @CobolString(cobolName = "CUSTOMER-NAME", charNum = 20)
+        @CobolString(cobolName = "CUSTOMER-NAME", charNum = 20, order = 1)
         private String customerName;
     
-        @CobolString(cobolName = "CUSTOMER-ADDRESS", charNum = 20)
+        @CobolString(cobolName = "CUSTOMER-ADDRESS", charNum = 20, order = 2)
         private String customerAddress;
     
-        @CobolString(cobolName = "CUSTOMER-PHONE", charNum = 8)
+        @CobolString(cobolName = "CUSTOMER-PHONE", charNum = 8, order = 3)
         private String customerPhone;
     
         public String getCustomerName() {
@@ -91,10 +91,10 @@ public class CustomerData {
     @CobolGroup(cobolName = "TRANSACTIONS")
     public static class Transactions {
     
-        @CobolBinaryNumber(cobolName = "TRANSACTION-NBR", totalDigits = 9, odoObject = true)
+        @CobolBinaryNumber(cobolName = "TRANSACTION-NBR", totalDigits = 9, odoObject = true, order = 1)
         private Integer transactionNbr;
     
-        @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "TRANSACTION-NBR")
+        @CobolArray(minOccurs=0, maxOccurs=5, dependingOn = "TRANSACTION-NBR", order = 2)
         private Transaction[] transaction;
     
         public Integer getTransactionNbr() {
@@ -118,10 +118,10 @@ public class CustomerData {
         
             private TransactionDateChoice transactionDateChoice;
         
-            @CobolPackedDecimal(cobolName = "TRANSACTION-AMOUNT", signed = true, totalDigits = 15, fractionDigits = 2)
+            @CobolPackedDecimal(cobolName = "TRANSACTION-AMOUNT", signed = true, totalDigits = 15, fractionDigits = 2, order = 2)
             private BigDecimal transactionAmount;
         
-            @CobolString(cobolName = "TRANSACTION-COMMENT", charNum = 9)
+            @CobolString(cobolName = "TRANSACTION-COMMENT", charNum = 9, order = 3)
             private String transactionComment;
         
             public TransactionDateChoice getTransactionDateChoice() {
@@ -151,7 +151,7 @@ public class CustomerData {
             @CobolChoice(cobolName = "TRANSACTION-DATE", maxBytesLen = 8)
             public static class TransactionDateChoice {
             
-                @CobolString(cobolName = "TRANSACTION-DATE", charNum = 8)
+                @CobolString(cobolName = "TRANSACTION-DATE", charNum = 8, order = 1)
                 private String transactionDate;
             
                 private Filler filler;
@@ -175,19 +175,19 @@ public class CustomerData {
                 @CobolGroup(cobolName = "FILLER")
                 public static class Filler {
                 
-                    @CobolString(cobolName = "TRANSACTION-DAY", charNum = 2)
+                    @CobolString(cobolName = "TRANSACTION-DAY", charNum = 2, order = 1)
                     private String transactionDay;
                 
-                    @CobolString(cobolName = "FILLER", charNum = 1)
+                    @CobolString(cobolName = "FILLER", charNum = 1, order = 2)
                     private String filler;
                 
-                    @CobolString(cobolName = "TRANSACTION-MONTH", charNum = 2)
+                    @CobolString(cobolName = "TRANSACTION-MONTH", charNum = 2, order = 3)
                     private String transactionMonth;
                 
-                    @CobolString(cobolName = "FILLER", charNum = 1)
+                    @CobolString(cobolName = "FILLER", charNum = 1, order = 4)
                     private String filler_3;
                 
-                    @CobolString(cobolName = "TRANSACTION-YEAR", charNum = 2)
+                    @CobolString(cobolName = "TRANSACTION-YEAR", charNum = 2, order = 5)
                     private String transactionYear;
                 
                     public String getTransactionDay() {

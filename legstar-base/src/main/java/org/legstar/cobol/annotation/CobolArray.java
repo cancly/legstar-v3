@@ -33,4 +33,6 @@ public @interface CobolArray {
 	 */
 	String dependingOn() default "";
 
+	int order();
+
 }

@@ -482,10 +482,10 @@ public class CobolBeanSerializerTest extends CobolConverterTestBase {
 
 	@CobolGroup(cobolName = "INVALID-FIELD")
 	class InvalidFieldClass {
-		@CobolString(cobolName = "PROLOG", charNum = 3)
+		@CobolString(cobolName = "PROLOG", order = 1, charNum = 3)
 		private String prolog;
 
-		@CobolZonedDecimal(cobolName = "CUSTOMER-ID", totalDigits = 6)
+		@CobolZonedDecimal(cobolName = "CUSTOMER-ID", order = 2, totalDigits = 6)
 		private String customerId;
 
 		public String getCustomerId() {

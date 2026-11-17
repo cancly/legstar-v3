@@ -11,13 +11,13 @@ import jakarta.xml.bind.annotation.*;
 @XmlType (propOrder={"comNumber", "comName", "comAmount"})
 public class Flat01Record {
 
-    @CobolZonedDecimal(cobolName = "COM-NUMBER", totalDigits = 6)
+    @CobolZonedDecimal(cobolName = "COM-NUMBER", order = 1, totalDigits = 6)
     private BigDecimal comNumber;
 
-    @CobolString(cobolName = "COM-NAME", charNum = 20)
+    @CobolString(cobolName = "COM-NAME", order = 2, charNum = 20)
     private String comName;
 
-    @CobolPackedDecimal(cobolName = "COM-AMOUNT", totalDigits = 7, fractionDigits = 2)
+    @CobolPackedDecimal(cobolName = "COM-AMOUNT", order = 3, totalDigits = 7, fractionDigits = 2)
     private BigDecimal comAmount;
 
     public BigDecimal getComNumber() {

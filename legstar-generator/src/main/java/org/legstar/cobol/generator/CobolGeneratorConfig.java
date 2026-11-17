@@ -28,4 +28,11 @@ public interface CobolGeneratorConfig {
 	 */
 	CopybookParserConfig parserConfig();
 
+	/**
+	 * Should the generated bean include a toPositionalString method.
+	 *
+	 * @return true if the generated bean include a toPositionalString method
+	 */
+	boolean withToPositionalString();
+
 }
