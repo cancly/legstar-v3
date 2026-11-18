@@ -7,7 +7,7 @@ import org.legstar.cobol.model.Copybook;
 import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "REC-A")
-@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+@CobolEncoding(hostCharsetName = "IBM037", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 public class RecA implements Copybook {
     @CobolOrder(0)
     private RecAHeader recAHeader;

@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface CobolEncoding {
-    String hostCharsetName() default "IBM01140";
+    String hostCharsetName() default "IBM037";
     boolean rightPadCobolAlphanumWithSpaces() default true;
     boolean truncateHostStringsTrailingSpaces() default false;
 }

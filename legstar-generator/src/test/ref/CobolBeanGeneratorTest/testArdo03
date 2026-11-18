@@ -7,7 +7,7 @@ import org.legstar.cobol.model.Copybook;
 import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "ARDO03-RECORD")
-@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+@CobolEncoding(hostCharsetName = "IBM037", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 public class Ardo03Record implements Copybook {
     @CobolOrder(0)
     @CobolZonedDecimal(cobolName = "ODO-COUNTER", totalDigits = 5, odoObject = true)

@@ -18,7 +18,7 @@ public class CobolBeanGeneratorConfig extends CobolGeneratorConfigBase<CobolBean
         return this;
     }
 
-    private String hostCharsetName = "IBM01140";
+    private String hostCharsetName = "IBM037";
     private boolean rightPadCobolAlphanumWithSpaces = true;
     private boolean truncateHostStringsTrailingSpaces;
 

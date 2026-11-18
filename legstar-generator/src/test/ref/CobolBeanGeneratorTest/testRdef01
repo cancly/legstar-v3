@@ -7,7 +7,7 @@ import org.legstar.cobol.model.Copybook;
 import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "RDEF01-RECORD")
-@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+@CobolEncoding(hostCharsetName = "IBM037", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 public class Rdef01Record implements Copybook {
     @CobolOrder(0)
     @CobolBinaryNumber(cobolName = "COM-SELECT", totalDigits = 4)

@@ -85,7 +85,7 @@ public class CobolStringConverterTest extends CobolConverterTestBase {
 	}
 
 	private String toString(String hex, int size, boolean truncateHostStringsTrailingSpaces) {
-		CobolStringConverter converter = new CobolStringConverter("IBM01140", truncateHostStringsTrailingSpaces, false,
+		CobolStringConverter converter = new CobolStringConverter("IBM037", truncateHostStringsTrailingSpaces, false,
 				64);
 		return converter.toString(inputStreamFrom(hex), size);
 	}
@@ -95,7 +95,7 @@ public class CobolStringConverterTest extends CobolConverterTestBase {
 	}
 
 	private String toCobol(String s, int size, boolean rightPadCobolAlphanumWithSpaces) {
-		CobolStringConverter converter = new CobolStringConverter("IBM01140", false, rightPadCobolAlphanumWithSpaces,
+		CobolStringConverter converter = new CobolStringConverter("IBM037", false, rightPadCobolAlphanumWithSpaces,
 				64);
 		byte[] res = converter.toCobol(s, size);
 		return hex.formatHex(res);

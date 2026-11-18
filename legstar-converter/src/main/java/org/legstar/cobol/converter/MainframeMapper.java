@@ -1,7 +1,6 @@
 package org.legstar.cobol.converter;
 
 import java.io.ByteArrayOutputStream;
-import org.legstar.cobol.model.Copybook;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -36,11 +35,12 @@ public final class MainframeMapper {
 
     public byte[] encode(Copybook dto) throws IOException {
         Objects.requireNonNull(dto, "dto");
-        validate(dto, dto.getClass().getSimpleName(), new HashMap<>(),
+        Object prepared = defaults(dto, dto.getClass(), new HashMap<>(), new HashSet<>(), dto.getClass().getSimpleName());
+        validate(prepared, dto.getClass().getSimpleName(), new HashMap<>(),
                 Collections.newSetFromMap(new IdentityHashMap<>()));
         var buffer = new ByteArrayOutputStream();
         try (var output = new CobolOutputStream(buffer)) {
-            new CobolBeanSerializer(new CobolPrimitiveConverter(configFor(dto.getClass())), classInfo).serialize(output, dto);
+            new CobolBeanSerializer(new CobolPrimitiveConverter(configFor(dto.getClass())), classInfo).serialize(output, prepared);
         }
         return buffer.toByteArray();
     }
@@ -135,10 +135,75 @@ public final class MainframeMapper {
             } else if (item instanceof CobolFloat n) value = converter.toJava(input, n, type);
             else value = converter.toJava(input, (CobolDouble) item, type);
             if (counter != null) counters.put(counter, new BigDecimal(value.toString()));
+            if (value instanceof String text && text.chars().allMatch(c -> c == ' ')) return null;
             return value;
         } catch (RuntimeException e) {
             throw new IllegalArgumentException(path + ": " + e.getMessage(), e);
         }
+    }
+
+    /** Prepare defaults without changing the caller's DTO. */
+    private Object defaults(Object source, Class<?> type, Map<String, BigDecimal> counters,
+            Set<Class<?>> pathTypes, String path) {
+        if (!pathTypes.add(type)) throw invalid(path, "recursive COBOL group layout");
+        try {
+            if (!(classInfo.getCobolItemType(type) instanceof CobolGroup)) throw invalid(path, "expected COBOL group");
+            Object copy = classInfo.newInstance(type);
+            for (var field : classInfo.fieldInfos(type)) {
+                String childPath = path + "." + field.name();
+                try {
+                    Object value = source == null ? null : field.getter().invoke(source);
+                    var item = field.cobolItemType();
+                    var array = field.cobolArray();
+                    if (item instanceof CobolChoice) throw invalid(childPath, "REDEFINES is deferred");
+                    if (array != null) {
+                        int length = value == null ? array.maxOccurs() : Array.getLength(value);
+                        if (value == null && !array.dependingOn().isBlank()) {
+                            var count = counters.get(array.dependingOn());
+                            if (count == null) throw invalid(childPath, "missing counter " + array.dependingOn());
+                            length = count.intValueExact();
+                        }
+                        if (length < array.minOccurs() || length > array.maxOccurs()) throw invalid(childPath, "invalid OCCURS count " + length);
+                        Class<?> elementType = field.javaType().getComponentType();
+                        Object values = Array.newInstance(elementType, length);
+                        for (int i = 0; i < length; i++) {
+                            Object element = value == null ? null : Array.get(value, i);
+                            Array.set(values, i, item instanceof CobolGroup
+                                    ? defaults(element, elementType, counters, pathTypes, childPath + "[" + i + "]")
+                                    : element == null ? primitiveDefault(elementType) : element);
+                        }
+                        value = values;
+                    } else if (item instanceof CobolGroup) {
+                        value = defaults(value, field.javaType(), counters, pathTypes, childPath);
+                    } else {
+                        String name = null;
+                        if (item instanceof CobolBinaryNumber n && n.odoObject()) name = n.cobolName();
+                        if (item instanceof CobolPackedDecimal n && n.odoObject()) name = n.cobolName();
+                        if (item instanceof CobolZonedDecimal n && n.odoObject()) name = n.cobolName();
+                        if (name != null) counters.put(name, value == null ? BigDecimal.ZERO : new BigDecimal(value.toString()));
+                    }
+                    field.setter().invoke(copy, value);
+                } catch (java.lang.reflect.InvocationTargetException e) {
+                    throw new IllegalArgumentException(childPath + ": setter failed", e.getCause());
+                } catch (ReflectiveOperationException | RuntimeException e) {
+                    throw new IllegalArgumentException(childPath + ": " + e.getMessage(), e);
+                }
+            }
+            return copy;
+        } finally {
+            pathTypes.remove(type);
+        }
+    }
+
+    private Object primitiveDefault(Class<?> type) {
+        if (type == String.class) return "";
+        if (type == Short.class || type == short.class) return (short) 0;
+        if (type == Integer.class || type == int.class) return 0;
+        if (type == Long.class || type == long.class) return 0L;
+        if (type == Float.class || type == float.class) return 0F;
+        if (type == Double.class || type == double.class) return 0D;
+        if (type == BigDecimal.class) return BigDecimal.ZERO;
+        throw new IllegalArgumentException("Unsupported primitive type " + type.getName());
     }
 
     private void validate(Object bean, String path, Map<String, BigDecimal> inherited, Set<Object> active) {

@@ -7,7 +7,7 @@ import org.legstar.cobol.model.Copybook;
 import org.legstar.cobol.annotation.*;
 
 @CobolGroup(cobolName = "RDEF05-RECORD")
-@CobolEncoding(hostCharsetName = "IBM01140", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
+@CobolEncoding(hostCharsetName = "IBM037", rightPadCobolAlphanumWithSpaces = true, truncateHostStringsTrailingSpaces = false)
 public class Rdef05Record implements Copybook {
     @CobolOrder(0)
     private Choice1Alt1Choice choice1Alt1Choice;

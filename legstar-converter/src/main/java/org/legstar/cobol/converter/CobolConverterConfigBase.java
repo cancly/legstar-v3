@@ -12,7 +12,7 @@ public abstract class CobolConverterConfigBase<T extends CobolConverterConfigBas
 	/**
 	 * USA, Canada with euro
 	 */
-	public static final String DEFAULT_EBCDIC_CHARSET = "IBM01140";
+	public static final String DEFAULT_EBCDIC_CHARSET = "IBM037";
 
 	/**
 	 * Latin-1

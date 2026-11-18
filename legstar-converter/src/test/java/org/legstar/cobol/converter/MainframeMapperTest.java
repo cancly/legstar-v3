@@ -36,13 +36,13 @@ class MainframeMapperTest {
         assertTrue(error.getMessage().contains("Request.items"));
     }
 
-    @Test void rejectsNullElementWithIndex() {
+    @Test void defaultsNullArrayElementWithoutChangingInput() throws Exception {
         var request = new Request();
         request.setCount((short) 1);
         request.setItems(new String[]{null});
-        var error = assertThrows(IllegalArgumentException.class,
-                () -> new MainframeMapper().encode(request));
-        assertTrue(error.getMessage().contains("items[0]"));
+        assertArrayEquals(new byte[]{0, 1, 32, 32},
+                new MainframeMapper(CobolBeanConverterConfig.ascii()).encode(request));
+        assertNull(request.getItems()[0]);
     }
     @Test void decodesOutputCountAndReplacesArray() {
         var request = new Request();
@@ -149,5 +149,67 @@ class MainframeMapperTest {
                 () -> MainframeMapper.class.getMethod("encode", Object.class));
         assertThrows(NoSuchMethodException.class,
                 () -> MainframeMapper.class.getMethod("decodeInto", byte[].class, Object.class));
+    }
+
+    @Test void defaultsMissingGroupAndVariableArray() throws Exception {
+        var mapper = new MainframeMapper(CobolBeanConverterConfig.ascii());
+        var dto = new Nested();
+        assertArrayEquals(new byte[]{0, 0}, mapper.encode(dto));
+        assertNull(dto.getChild());
+        var request = new Request();
+        request.setCount((short) 2);
+        assertArrayEquals(new byte[]{0, 2, 32, 32, 32, 32}, mapper.encode(request));
+        assertNull(request.getItems());
+    }
+
+    @Test void resetsBlankStringsButPreservesNumericZero() {
+        var mapper = new MainframeMapper(CobolBeanConverterConfig.ascii());
+        var dto = new Encoded();
+        dto.setText("old");
+        mapper.decodeInto(new byte[]{32, 32}, dto);
+        assertNull(dto.getText());
+        dto.setText("old");
+        mapper.decodeInto(new byte[]{0, 0}, dto);
+        assertNull(dto.getText());
+        var request = new Request();
+        mapper.decodeInto(new byte[]{0, 0}, request);
+        assertEquals((short) 0, request.getCount());
+        mapper.decodeInto(new byte[]{0, 1, 32, 32}, request);
+        assertNull(request.getItems()[0]);
+    }
+
+    @CobolGroup(cobolName="OUTPUT")
+    public static class Output implements Copybook {
+        @CobolOrder(0) @CobolString(cobolName="TEXT", charNum=2)
+        private String text;
+        @CobolOrder(1) @CobolPackedDecimal(cobolName="AMOUNT", totalDigits=3)
+        private java.math.BigDecimal amount;
+        public String getText() { return text; }
+        public void setText(String value) { text = value; }
+        public java.math.BigDecimal getAmount() { return amount; }
+        public void setAmount(java.math.BigDecimal value) { amount = value; }
+    }
+
+    @CobolGroup(cobolName="FIXED")
+    public static class Fixed implements Copybook {
+        @CobolArray(minOccurs=2, maxOccurs=2)
+        private Output[] rows;
+        public Output[] getRows() { return rows; }
+        public void setRows(Output[] value) { rows = value; }
+    }
+
+    @Test void defaultsFixedGroupOccurrencesAndPackedZero() throws Exception {
+        var mapper = new MainframeMapper(CobolBeanConverterConfig.ascii());
+        var dto = new Fixed();
+        byte[] expected = {32, 32, 0, 15, 32, 32, 0, 15};
+        assertArrayEquals(expected, mapper.encode(dto));
+        assertNull(dto.getRows());
+        dto.setRows(new Output[]{null, new Output()});
+        assertArrayEquals(expected, mapper.encode(dto));
+        assertNull(dto.getRows()[0]);
+        assertNull(dto.getRows()[1].getAmount());
+        mapper.decodeInto(expected, dto);
+        assertNull(dto.getRows()[0].getText());
+        assertEquals(0, dto.getRows()[0].getAmount().signum());
     }
 }

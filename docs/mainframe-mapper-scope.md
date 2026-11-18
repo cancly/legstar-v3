@@ -49,7 +49,7 @@ Il goal `generate-bean` accetta:
 
 ```xml
 <configuration>
-    <hostCharsetName>IBM01140</hostCharsetName>
+    <hostCharsetName>IBM037</hostCharsetName>
     <rightPadCobolAlphanumWithSpaces>true</rightPadCobolAlphanumWithSpaces>
     <truncateHostStringsTrailingSpaces>false</truncateHostStringsTrailingSpaces>
 </configuration>
@@ -68,3 +68,8 @@ Nel goal generate-bean, `<validateSetters>false</validateSetters>` disabilita tu
 ## Contratto Copybook
 
 I DTO dei gruppi generati implementano `org.legstar.cobol.model.Copybook`, interfaccia marker pubblica in legstar-base. Le firme del mapper sono `encode(Copybook dto)` e `decodeInto(byte[] output, Copybook dto)`. Rigenerare i DTO esistenti oppure aggiungere esplicitamente implements Copybook ai DTO manuali. Le annotation continuano a definire il layout; la marker interface limita i tipi accettati a compilazione.
+
+## Aggiornamento default e null (18 novembre 2026)
+
+Superato il precedente requisito di inizializzare gruppi e array prima di encode. Il mapper costruisce una copia per la serializzazione: gruppi null vengono espansi ricorsivamente, OCCURS fissi null assumono la dimensione dichiarata, OCCURS variabili null seguono il contatore (zero se il campo contatore è null). Dimensioni fuori range o incoerenti continuano a generare eccezione. Gli elementi null degli array ricevono default; il DTO originale resta invariato.
+In decodeInto solo le stringhe vuote o composte interamente da spazi diventano null, anche se precedentemente valorizzate. I numeri a zero restano zero. Si applica anche agli elementi degli array; i gruppi restano oggetti e i loro campi vengono decodificati normalmente. La gestione LegStar preesistente scarta low/high values dalle stringhe: anche una stringa risultante vuota da questi byte viene convertita a null.

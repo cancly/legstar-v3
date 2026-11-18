@@ -20,8 +20,8 @@ public class BeanGeneratorMojo extends LegstarMojoBase {
     private boolean validateSetters = false;
 
     /** Host code page used by MainframeMapper. */
-    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "IBM01140", property = "legstar.hostCharsetName")
-    private String hostCharsetName = "IBM01140";
+    @org.apache.maven.plugins.annotations.Parameter(defaultValue = "IBM037", property = "legstar.hostCharsetName")
+    private String hostCharsetName = "IBM037";
     /** Use spaces (true) or low values (false) for right padding. */
     @org.apache.maven.plugins.annotations.Parameter(defaultValue = "true", property = "legstar.rightPadCobolAlphanumWithSpaces")
     private boolean rightPadCobolAlphanumWithSpaces = true;
